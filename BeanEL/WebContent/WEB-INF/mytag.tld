@@ -49,4 +49,10 @@
   	</attribute>
   </tag>
   
+  <tag>
+  	<name>testJspFragment</name>
+  	<tag-class>com.zs.javaweb.tag.TestTagFragment</tag-class>
+  	<body-content>scriptless</body-content>
+  </tag>
+  
 </taglib>

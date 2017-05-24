@@ -26,6 +26,7 @@
 	<!-- 会调用标签处理类的set方法 -->
 <%-- 	<zs:hello value="happyte" count="10"/> --%>
 	
-	<zs:readerFile src="/WEB-INF/note.txt"/>
+<%-- 	<zs:readerFile src="/WEB-INF/note.txt"/> --%>
+	<zs:testJspFragment>hello: ${param.name }</zs:testJspFragment>
 </body>
 </html>
