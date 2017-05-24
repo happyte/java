@@ -15,6 +15,26 @@
   
   <!-- 描述自定义的HelloSimpleTag标签 -->
   <tag>
+  	<!-- 标签的名字:在JSP页面上使用标签的名字 -->
+  	<name>hello</name>
+  	<tag-class>com.zs.javaweb.tag.HelloSimpleTag</tag-class>
+  	<body-content>empty</body-content>
+  	
+  	<!-- 描述当前标签的属性 -->
+  	<attribute>
+  		<!-- 属性名 -->
+  		<name>value</name>
+  		<!-- 该属性是否必须 -->
+  		<required>true</required>
+  		<!-- 当前属性是否可以接受运行时表达式的动态值 -->
+  		<rtexprvalue>true</rtexprvalue>
+  	</attribute>
+  	
+  	<attribute>
+  		<name>count</name>
+  		<required>true</required>
+  		<rtexprvalue>true</rtexprvalue>
+  	</attribute>
   </tag>
   
 </taglib>

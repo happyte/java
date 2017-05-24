@@ -4,6 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="zs" uri="http://www.zs.com/jsp/mytag/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,5 +22,8 @@
 	<c:forEach items="${requestScope.customers }" var="customer">
 		--${customer.id }--${customer.name }--${customer.age }<br>
 	</c:forEach>
+	
+	<!-- 会调用标签处理类的set方法 -->
+	<zs:hello value="happyte" count="10"/>
 </body>
 </html>
