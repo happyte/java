@@ -14,6 +14,7 @@
 	</jsp:useBean>
 	
 	<jsp:setProperty property="age" name="customer" value="10"></jsp:setProperty>
+	<!-- 若property的值为*,省略value属性值，将自动设置所有属性赋值为对应的请求参数的值,在url中设置 -->
 	<jsp:setProperty property="*" name="customer2"/>
 	
 	
