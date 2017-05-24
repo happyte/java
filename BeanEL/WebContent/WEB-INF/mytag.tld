@@ -55,4 +55,22 @@
   	<body-content>scriptless</body-content>
   </tag>
   
+  <tag>
+  	<name>forEach</name>
+  	<tag-class>com.zs.javaweb.tag.ForEachTag</tag-class>
+  	<body-content>scriptless</body-content>
+  	
+  	<attribute>
+  		<name>items</name>
+  		<required>true</required>
+  		<rtexprvalue>true</rtexprvalue>
+  	</attribute>
+  	
+  	<attribute>
+  		<name>var</name>
+  		<required>true</required>
+  		<rtexprvalue>true</rtexprvalue>
+  	</attribute>
+  </tag>
+  
 </taglib>

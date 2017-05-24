@@ -28,5 +28,11 @@
 	
 <%-- 	<zs:readerFile src="/WEB-INF/note.txt"/> --%>
 	<zs:testJspFragment>hello: ${param.name }</zs:testJspFragment>
+	<br>
+	
+	<!-- .实际上是一层层调用get方法 -->
+	<zs:forEach items="${requestScope.customers }" var="cust">
+		${pageScope.cust.id }--${cust.name }--${cust.age }<br>
+	</zs:forEach>
 </body>
 </html>
