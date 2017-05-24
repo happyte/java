@@ -37,4 +37,16 @@
   	</attribute>
   </tag>
   
+  <tag>
+  	<name>readerFile</name>
+  	<tag-class>com.zs.javaweb.tag.ReadFileTag</tag-class>
+  	<body-content>empty</body-content>
+  	
+  	<attribute>
+  		<name>src</name>
+  		<required>true</required>
+  		<rtexprvalue>true</rtexprvalue>
+  	</attribute>
+  </tag>
+  
 </taglib>

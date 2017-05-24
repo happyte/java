@@ -19,11 +19,13 @@
 		customers.add(new Customer(3,"tree",23));
 		request.setAttribute("customers", customers);
 	%>
-	<c:forEach items="${requestScope.customers }" var="customer">
+<%-- 	<c:forEach items="${requestScope.customers }" var="customer">
 		--${customer.id }--${customer.name }--${customer.age }<br>
-	</c:forEach>
+	</c:forEach> --%>
 	
 	<!-- 会调用标签处理类的set方法 -->
-	<zs:hello value="happyte" count="10"/>
+<%-- 	<zs:hello value="happyte" count="10"/> --%>
+	
+	<zs:readerFile src="/WEB-INF/note.txt"/>
 </body>
 </html>
