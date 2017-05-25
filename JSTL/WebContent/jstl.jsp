@@ -40,6 +40,24 @@
  	<br>
  	<c:remove var="date" scope="session"/>
  	date:${sessionScope.date }
+ 	<br><br>
+ 	
+ 	<h4><font color="red">c:if 不能实现else操作，但可以把结果存储起来</font></h4>
+  	<c:set var="age" value="20" scope="request"></c:set>
+  	<!-- test是个boolean值 -->
+  	<c:if test="${requestScope.age > 18 }">成年了</c:if>
+  	<br><br>
+  	<c:if test="${param.age > 18 }" var="isAdult" scope="request"></c:if>
+  	idAdult:${requestScope.isAdult }
+  	<br><br>
+  	
+  	<h4><font color="red">c:choose,c:when,c:otherwise</font></h4>
+  	<c:choose>
+  		<c:when test="${param.age > 60 }">老年</c:when>
+  		<c:when test="${param.age > 35 }">中年</c:when>
+  		<c:when test="${param.age > 18 }">青年</c:when>
+  		<c:otherwise>未成年</c:otherwise>
+  	</c:choose>
 	
 </body>
 </html>
