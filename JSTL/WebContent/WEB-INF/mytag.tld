@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+    
+  <description>MyTag 1.1 core library</description>
+  <display-name>MyTag core</display-name>
+  <tlib-version>1.1</tlib-version>
+  <!-- 简易在jsp页面上使用的标签前缀 -->
+  <short-name>zs</short-name>
+  <!-- tld文件的id, 用来唯一标识当前的tld文件,uri不能重复 -->
+  <uri>http://www.zs.com/jsp/mytag/core</uri>
+  
+  <!-- 父子标签，子标签是父标签的标签体 -->
+  <tag>
+  	<name>parentTag</name>
+  	<tag-class>com.zs.javaweb.ParentTag</tag-class>
+  	<body-content>scriptless</body-content>
+  </tag>
+  
+  <tag>
+  	<name>sonTag</name>
+  	<tag-class>com.zs.javaweb.SonTag</tag-class>
+  	<body-content>empty</body-content>
+  </tag>
+  
+ </taglib>
