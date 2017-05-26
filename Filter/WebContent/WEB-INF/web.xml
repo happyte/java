@@ -9,24 +9,36 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
   <context-param>
-  	<param-name>encoding</param-name>
-  	<param-value>UTF-8</param-value>
+    <param-name>encoding</param-name>
+    <param-value>UTF-8</param-value>
   </context-param>
   
   <filter>
-  	<filter-name>helloFilter</filter-name>
-  	<filter-class>com.zs.javaweb.HelloFilter</filter-class>
-  	<init-param>
-  		<param-name>name</param-name>
-  		<param-value>root</param-value>
-  	</init-param>
+    <filter-name>helloFilter</filter-name>
+    <filter-class>com.zs.javaweb.HelloFilter</filter-class>
+    <init-param>
+      <param-name>name</param-name>
+      <param-value>root</param-value>
+    </init-param>
   </filter>
-  
   <filter-mapping>
-  	<filter-name>helloFilter</filter-name>
-  	<url-pattern>/test.jsp</url-pattern>
+    <filter-name>helloFilter</filter-name>
+    <url-pattern>/test.jsp</url-pattern>
   </filter-mapping>
+  
+  <filter>
+    <filter-name>secondFilter</filter-name>
+    <filter-class>com.zs.javaweb.SecondFilter</filter-class>
+    <init-param>
+      <param-name>password</param-name>
+      <param-value>1234</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>secondFilter</filter-name>
+    <url-pattern>/test.jsp</url-pattern>
+  </filter-mapping>
+  
   
 </web-app>

@@ -10,7 +10,7 @@
 
 	<h4>Test Page</h4>
 	<%
-		System.out.println("3. Test JSP");
+		System.out.println("5. Test JSP");
 	%>
 
 </body>

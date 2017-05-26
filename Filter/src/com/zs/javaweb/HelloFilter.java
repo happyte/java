@@ -39,7 +39,7 @@ public class HelloFilter implements Filter {
 	
 	public void init(FilterConfig fConfig) throws ServletException {
 		this.fConfig = fConfig;
-		System.out.println("init....");
+		System.out.println("fist init....");
 	}
 
 }
