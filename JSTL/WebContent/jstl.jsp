@@ -90,6 +90,20 @@
   	<c:forEach items="${requestScope.custMap }" var="cust">
   		${cust.key }--${cust.value.id }--${cust.value.name }<br>
   	</c:forEach>
-	
+  	<br><br>
+  	
+  	<h4><font color="red">c:import 可以包含任何页面到当前页面</font></h4>
+<%--   	<c:import url="http://www.baidu.com"></c:import> --%>
+
+	<h4><font color="red">c:redirect 使当前JSP页面重定向到指定的页面</font></h4>
+<%-- 	<c:redirect url="/test.jsp"></c:redirect> --%>
+
+	<h4><font color="red">c:url 产生一个url地址 value的/代表WEB应用的根目录 c:param为URL添加参数</font></h4>
+	<!-- 为test.jsp产生一个url,参数会自动转码 -->
+	<c:url value="/test.jsp" var="testurl" scope="page">
+		<c:param name="myname" value="张树"></c:param>
+	</c:url>
+	url: ${pageScope.testurl }
+  		
 </body>
 </html>
