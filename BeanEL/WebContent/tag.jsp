@@ -32,7 +32,8 @@
 	
 	<!-- .实际上是一层层调用get方法 -->
 	<zs:forEach items="${requestScope.customers }" var="cust">
-		${pageScope.cust.id }--${cust.name }--${cust.age }<br>
+<%-- 		${pageScope.cust.id }--${cust.name }--${cust.age }<br> --%>
+<%-- 		<%=pageContext.getAttribute("cust") %><br> --%>
 	</zs:forEach>
 </body>
 </html>

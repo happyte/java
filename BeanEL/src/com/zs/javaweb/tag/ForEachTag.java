@@ -21,6 +21,7 @@ public class ForEachTag extends SimpleTagSupport {
 		this.var = var;
 	}
 	
+	//items,var传递过来的都是属性值，例如items是Customer的集合,var是cust
 	@Override
 	public void doTag() throws JspException, IOException {
 		//items是Customer的集合
