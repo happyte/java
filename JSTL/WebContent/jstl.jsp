@@ -1,3 +1,7 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.zs.javaweb.Customer"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -58,6 +62,34 @@
   		<c:when test="${param.age > 18 }">青年</c:when>
   		<c:otherwise>未成年</c:otherwise>
   	</c:choose>
+  	<br><br>
+  	
+  	<h4><font color="red">c:forEach 对数组、Collection、Map进行遍历,begin,end,step</font></h4>
+  	<%
+  		List<Customer> custs = new ArrayList<Customer>();
+  		custs.add(new Customer(1,"happyte",24));
+  		custs.add(new Customer(2,"lemon",24));
+  		custs.add(new Customer(3,"tree",24));
+  		custs.add(new Customer(4,"haha",24));
+  		custs.add(new Customer(5,"zs",24));
+  		request.setAttribute("custs", custs);
+  	%>
+  	<c:forEach items="${requestScope.custs }" var="cust" begin="1" step="2" varStatus="status">
+  		${status.index},${status.count},${status.first},${status.last},${cust.id }--${cust.name }--${cust.age }<br>
+  	</c:forEach>
+  	<br><br>
+  	
+  	<!-- 遍历Map -->
+  	<%
+  		Map<String,Customer>custMap = new HashMap<String,Customer>();
+  		custMap.put("a", new Customer(1,"happyte",24));
+  		custMap.put("b", new Customer(2,"lemon",24));
+  		custMap.put("c", new Customer(3,"tree",24));
+  		request.setAttribute("custMap",custMap);
+  	%>
+  	<c:forEach items="${requestScope.custMap }" var="cust">
+  		${cust.key }--${cust.value.id }--${cust.value.name }<br>
+  	</c:forEach>
 	
 </body>
 </html>
