@@ -32,7 +32,7 @@ public abstract class HttpFilter implements Filter {
 	}
 	
 	//抽象方法，子类必须实现
-	public abstract void doFilter(HttpServletRequest arg0, HttpServletResponse arg1, FilterChain arg2)
+	public abstract void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException;
 	
 	private FilterConfig fConfig;
@@ -42,13 +42,15 @@ public abstract class HttpFilter implements Filter {
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
-		System.out.println("HttpFilter init....");
-		this.fConfig = arg0;
+	public void init(FilterConfig filterConfig) throws ServletException {
+		System.out.println("HttpFilter filterConfig init....");
+		this.fConfig = filterConfig;
+		init();
 	}
 	
+	//子类重写了这个方法的话，根本没有调用父类的这个方法，直接调用子类的这个方法
 	protected void init(){
-		
+		System.out.println("HttpFilter init....");
 	}
 
 }
