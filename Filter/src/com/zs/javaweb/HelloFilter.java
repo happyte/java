@@ -16,13 +16,11 @@ public class HelloFilter implements Filter {
    
     public HelloFilter() {
     }
-
 	
 	public void destroy() {
 		
 	}
 
-	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
 			throws IOException, ServletException {
 		//获取全局初始化参数
