@@ -11,8 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.coyote.http11.filters.VoidInputFilter;
-
 //自定义Filter继承类,抽象类，重写了一部分继承方法
 public abstract class HttpFilter implements Filter {
 
@@ -24,7 +22,7 @@ public abstract class HttpFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
-		System.out.println("HttpFilter doFilter....");
+		//System.out.println("HttpFilter doFilter....");
 		//父类赋给子类，必须强转
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
@@ -43,7 +41,7 @@ public abstract class HttpFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		System.out.println("HttpFilter filterConfig init....");
+		//System.out.println("HttpFilter filterConfig init....");
 		this.fConfig = filterConfig;
 		init();
 	}

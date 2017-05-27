@@ -21,13 +21,13 @@ public class SecondFilter implements Filter {
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		//System.out.println("3. Before SecondFilter's chain.doFilter");
+		System.out.println("3. Before SecondFilter's chain.doFilter");
 		chain.doFilter(request, response);
-		//System.out.println("4. After SecondFilter's chain.doFilter");
+		System.out.println("4. After SecondFilter's chain.doFilter");
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		//System.out.println("second init....");
+		System.out.println("second init....");
 	}
 
 }

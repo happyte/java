@@ -30,16 +30,16 @@ public class HelloFilter implements Filter {
 		String name = this.fConfig.getInitParameter("name");
 		//System.out.println("encoding:"+encoding);
 		//System.out.println("name:"+name);
-		//System.out.println("1. Before HelloFilter's chain.doFilter");
+		System.out.println("1. Before HelloFilter's chain.doFilter");
 		chain.doFilter(request, response);
-		//System.out.println("2. After HelloFilter's chain.doFilter");
+		System.out.println("2. After HelloFilter's chain.doFilter");
 	}
 
 	private FilterConfig fConfig;
 	
 	public void init(FilterConfig fConfig) throws ServletException {
 		this.fConfig = fConfig;
-		//System.out.println("fist init....");
+		System.out.println("fist init....");
 	}
 
 }
