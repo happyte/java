@@ -44,7 +44,7 @@ public class UsernameFilter implements Filter {
 	
 	public void init(FilterConfig fConfig) throws ServletException {
 		this.fConfig = fConfig;
-		System.out.println("usernamefilter init....");
+		//System.out.println("usernamefilter init....");
 	}
 
 }

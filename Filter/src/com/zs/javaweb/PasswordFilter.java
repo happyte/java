@@ -42,7 +42,7 @@ public class PasswordFilter implements Filter {
 	
 	public void init(FilterConfig fConfig) throws ServletException {
 		this.fConfig = fConfig;
-		System.out.println("password filter init...");
+		//System.out.println("password filter init...");
 	}
 
 }
