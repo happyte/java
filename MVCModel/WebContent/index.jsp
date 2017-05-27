@@ -1,7 +1,6 @@
-<%@page import="com.zs.mvcapp.domain.Customer"%>
-<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,11 +40,9 @@
 		</table>
 	</form>
 	
-	<%
-		List<Customer> customers = (List<Customer>)request.getAttribute("customers");
-		if(customers != null && customers.size() > 0){
-	%>
-	<table border="1" cellpadding="10" cellspacing="0">
+	<!-- 判断request获取的customers是否为空 -->
+	<c:if test="${!empty requestScope.customers }">
+		<table border="1" cellpadding="10" cellspacing="0">
 				<tr>
 					<th>ID</th>
 					<th>CustomerName</th>
@@ -55,26 +52,19 @@
 				</tr>
 				<hr>
 				<br><br>
-	<%		
-		for(Customer customer:customers){
-	%>
-				<tr>
-					<td><%=customer.getId() %></td>
-					<td><%=customer.getName() %></td>
-					<td><%=customer.getAddress() %></td>
-					<td><%=customer.getPhone() %></td>
-					<td>
-						<a href="delete.do?id=<%=customer.getId() %>" class="delete">DELETE</a>
-						<a href="edit.do?id=<%=customer.getId() %>">UPDATE</a>
-					</td>
-				</tr>
-	<% 
-			} 
-	%>
-	</table>
-	<%
-		}
-	%>
-
+		<c:forEach items="${requestScope.customers }" var="customer">
+			<tr>
+				<td>${customer.id }</td>
+				<td>${customer.name }</td>
+				<td>${customer.address }</td>
+				<td>${customer.phone }</td>
+				<td>
+					<a href="delete.do?id=${customer.id }" class="delete">DELETE</a>
+					<a href="edit.do?id=${customer.id }">UPDATE</a>
+				</td>
+			</tr>
+		</c:forEach>
+		</table>
+	</c:if>
 </body>
 </html>
