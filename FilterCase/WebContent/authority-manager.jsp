@@ -21,7 +21,19 @@
 			<br><br>
 			<form action="" method="post">
 				<c:forEach items="${requestScope.authorities }" var="auth">
-					<input type="checkbox" name="authority">${auth.dispalyName }<br><br>
+				<c:set var="flag" value="false"></c:set>
+					<!-- 两层遍历，找出用户的权限，与当前行的权限进行对比 -->
+					<c:forEach items="${ requestScope.user.authorities }" var="ua">
+						<c:if test="${ua.url == auth.url }">
+						<c:set var="flag" value="true"></c:set>
+						</c:if>
+					</c:forEach>
+					<c:if test="${flag == true }">
+						<input type="checkbox" name="authority" checked="checked">${auth.dispalyName }<br><br>
+					</c:if>
+					<c:if test="${flag == false }">
+						<input type="checkbox" name="authority">${auth.dispalyName }<br><br>
+					</c:if>
 				</c:forEach>
 				<input type="submit" value="Update">
 			</form>
