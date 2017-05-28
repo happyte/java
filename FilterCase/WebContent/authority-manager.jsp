@@ -19,7 +19,9 @@
 		<c:if test="${!empty requestScope.user }">
 			${requestScope.user.username }的权限是:
 			<br><br>
-			<form action="" method="post">
+			<form action="authorityServlet?method=updateAuthorities" method="post">
+			<!-- 隐藏域是因为request更新了，update方法需要获取用户名 -->
+			<input type="hidden" name="username" value="${requestScope.user.username }">
 				<c:forEach items="${requestScope.authorities }" var="auth">
 				<c:set var="flag" value="false"></c:set>
 					<!-- 两层遍历，找出用户的权限，与当前行的权限进行对比 -->
@@ -29,10 +31,10 @@
 						</c:if>
 					</c:forEach>
 					<c:if test="${flag == true }">
-						<input type="checkbox" name="authority" checked="checked">${auth.dispalyName }<br><br>
+						<input type="checkbox" name="authority" checked="checked" value="${auth.url }">${auth.dispalyName }<br><br>
 					</c:if>
 					<c:if test="${flag == false }">
-						<input type="checkbox" name="authority">${auth.dispalyName }<br><br>
+						<input type="checkbox" name="authority" value="${auth.url }">${auth.dispalyName }<br><br>
 					</c:if>
 				</c:forEach>
 				<input type="submit" value="Update">

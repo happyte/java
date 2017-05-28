@@ -3,6 +3,7 @@ package com.zs.javaweb;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -35,7 +36,8 @@ public class AuthorityServlet extends HttpServlet {
 		}
 	}
 	
-	private UserDao userDao = new UserDao(); 
+	private UserDao userDao = new UserDao();
+	private List<Authority> originUrls = new ArrayList<>();
 	
 	public void getAuthorities(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
@@ -47,6 +49,31 @@ public class AuthorityServlet extends HttpServlet {
 		request.setAttribute("authorities", authorities);
 		//转发到authority-manager.jsp
 		request.getRequestDispatcher("authority-manager.jsp").forward(request, response);
+	}
+	
+	//更新用户权限
+	public void updateAuthorities(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+	    List<Authority> urls = new ArrayList<>();
+		//字符串数组
+		String[] authorities = request.getParameterValues("authority");
+		//获取的用户名
+		String username = request.getParameter("username");
+		//获取全部属性
+		originUrls = userDao.getAuthorities();
+		if(authorities != null){
+			for(Authority originUrl:originUrls){
+				for(String authority:authorities){
+					//两者获取的url相同
+					if(authority.equals(originUrl.getUrl())){
+						urls.add(originUrl);
+					}
+				}
+			}
+		}
+		userDao.update(username, urls);
+		//重定向到authority-manager.jsp
+		response.sendRedirect(request.getContextPath()+"/authority-manager.jsp");
 	}
 
 }
