@@ -15,5 +15,6 @@
 	<br><br>
 	<a href="article-4.jsp">Article 444</a>
 	<br><br>
+	<a href="loginServlet?method=logout">Logout</a>
 </body>
 </html>
