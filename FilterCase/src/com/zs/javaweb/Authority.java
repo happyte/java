@@ -33,7 +33,6 @@ public class Authority {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		System.out.println("==================");
 		if (this == obj)
 			return true;
 		if (obj == null)

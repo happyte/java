@@ -26,8 +26,7 @@ public class AuthorityFilter extends HttpFilter {
 				throws IOException, ServletException {
 			List<String> uncheckedUrls = Arrays.asList("/login.jsp","/logout.jsp",
 					"/authority-manager.jsp","/articles.jsp","/403.jsp",
-					"/loginServlet?method=logout","/loginServlet?method=login",
-					"/authorityServlet?method=getAuthorities","/authorityServlet?method=updateAuthorities");
+					"/loginServlet","/authorityServlet");
 			String servletPath = request.getServletPath();
 			//1.如果servletPath属于uncheckedUrls其中的某个，放行
 			if(uncheckedUrls.contains(servletPath)){
@@ -35,7 +34,6 @@ public class AuthorityFilter extends HttpFilter {
 				return;
 			}
 			User user = (User)request.getSession().getAttribute("user");
-			System.out.println("----user-----:"+user);
 			//2.如果user为空，则跳转到login.jsp
 			if(user == null){
 				response.sendRedirect(request.getContextPath()+"/login.jsp");
@@ -43,6 +41,7 @@ public class AuthorityFilter extends HttpFilter {
 			}
 			List<Authority> authorities = user.getAuthorities();
 			//3.如果user非空，且有该页面的权限，放行
+			//不比较displayName,重写了Authority的equal方法
 			Authority authority = new Authority(null, servletPath);
 			if(authorities.contains(authority)){
 				filterChain.doFilter(request, response);
