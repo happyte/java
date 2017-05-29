@@ -41,6 +41,8 @@ public class LoginServlet extends HttpServlet {
 		User user = userDao.getUser(username);
 		request.getSession().setAttribute("user", user);
 		//回到articles.jsp
+		System.out.println("username:"+username);
+		System.out.println("user:"+user);
 		response.sendRedirect(request.getContextPath()+"/articles.jsp");
 	}
 	
