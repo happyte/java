@@ -34,7 +34,7 @@ public class AuthorityFilter extends HttpFilter {
 				return;
 			}
 			User user = (User)request.getSession().getAttribute("user");
-			//2.如果user为空，则跳转到login.jsp
+			//2.如果user为空，没有登录或者根本没有这个用户，则跳转到login.jsp
 			if(user == null){
 				response.sendRedirect(request.getContextPath()+"/login.jsp");
 				return;
