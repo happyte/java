@@ -47,7 +47,7 @@
 </script>
 </head>
 <body>
-	<form action="" method="post" enctype="multipart/form-data">
+	<form action="<%=request.getContextPath() %>/fileUploadServlet" method="post" enctype="multipart/form-data">
 		<table>
 			<tr class="file">
 				<td>File1</td>
