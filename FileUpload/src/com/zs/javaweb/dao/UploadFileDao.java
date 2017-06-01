@@ -26,7 +26,8 @@ public class UploadFileDao extends Dao<FileUploadBean> {
 		try {
 			connection = JDBCUtils.getConnection();
 			// 插入新数据
-			String sql = "INSERT INTO upload_files(file_name, file_path, file_desc) VALUES (?,?,?)";
+			String sql = "INSERT INTO upload_files (file_name, file_path, file_desc) VALUES " +
+			"(?, ?, ?)";
 			for(FileUploadBean bean:beans){
 				update(connection, sql, bean.getFileName(), bean.getFilePath(), bean.getDescription());
 			}

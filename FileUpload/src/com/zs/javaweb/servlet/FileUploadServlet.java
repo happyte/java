@@ -107,6 +107,7 @@ public class FileUploadServlet extends HttpServlet {
 	private void validateExtNames(List<FileUploadBean> beans) {
 		String extNames = FileUploadProperities.getInstance().getProperty("exts");
 		List<String> extNameLists = Arrays.asList(extNames.split(","));  //[pptx, docx, doc]
+		System.out.println("extNameLists:"+extNameLists);
 		//获得当前文件的扩展名
 		for(FileUploadBean bean:beans){
 			String fileName = bean.getFileName();
