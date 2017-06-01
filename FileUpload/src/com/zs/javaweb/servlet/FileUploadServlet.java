@@ -24,6 +24,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.zs.javaweb.beans.FileUploadBean;
+import com.zs.javaweb.dao.UploadFileDao;
 import com.zs.javaweb.exception.InvalidExtNameException;
 import com.zs.javaweb.properities.FileUploadProperities;
 
@@ -64,10 +65,11 @@ public class FileUploadServlet extends HttpServlet {
 		}
 		request.getRequestDispatcher(path).forward(request, response);
 	}
+	
+	private UploadFileDao dao = new UploadFileDao();
 
 	private void saveBeans(List<FileUploadBean> beans) {
-		
-		
+		dao.save(beans);
 	}
 	
 	/**
@@ -153,7 +155,13 @@ public class FileUploadServlet extends HttpServlet {
 		}
 		return beans;
 	}
-
+	
+	/**
+	 * 根据getServletContext()的getRealPath获得文件的真实路径,加入随机数是为了防止文件名在某一时刻重复
+	 * 之后可以用MD5加密获得
+	 * @param fileName
+	 * @return
+	 */
 	private String getPath(String fileName) {
 		//根据.获取扩展名
 		String extName = fileName.substring(fileName.indexOf("."));
@@ -161,7 +169,11 @@ public class FileUploadServlet extends HttpServlet {
 		String filePath = getServletContext().getRealPath(FILE_PATH) + "/" + System.currentTimeMillis() + random.nextInt(10000) +extName;
 		return filePath;
 	}
-
+	
+	/**
+	 * 配置文件大小参数，返回ServletFileUpload对象
+	 * @return
+	 */
 	private ServletFileUpload getServletFileUpload() {
 		//获取properties中的读取参数
 		String fileSize = FileUploadProperities.getInstance().getProperty("file.max.size");
