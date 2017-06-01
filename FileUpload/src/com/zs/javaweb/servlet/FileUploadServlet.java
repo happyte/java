@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.zs.javaweb.beans.FileUploadBean;
+import com.zs.javaweb.exception.InvalidExtNameException;
 import com.zs.javaweb.properities.FileUploadProperities;
 
 
@@ -36,6 +38,7 @@ public class FileUploadServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		String path = null;
 		//获取ServletFileUpload对象
 		ServletFileUpload servletFileUpload = getServletFileUpload();
 		try {
@@ -53,9 +56,13 @@ public class FileUploadServlet extends HttpServlet {
 			upload(uploadFiles);
 			//5.把信息保存到数据库中
 			saveBeans(beans);
+			path = "/app/success.jsp";
 		} catch (Exception e) {
 			e.printStackTrace();
+			path = "/app/upload.jsp";
+			request.setAttribute("message", e.getMessage());
 		}
+		request.getRequestDispatcher(path).forward(request, response);
 	}
 
 	private void saveBeans(List<FileUploadBean> beans) {
@@ -96,8 +103,19 @@ public class FileUploadServlet extends HttpServlet {
 	}
 
 	private void validateExtNames(List<FileUploadBean> beans) {
-		
-		
+		String extNames = FileUploadProperities.getInstance().getProperty("exts");
+		List<String> extNameLists = Arrays.asList(extNames.split(","));  //[pptx, docx, doc]
+		//获得当前文件的扩展名
+		for(FileUploadBean bean:beans){
+			String fileName = bean.getFileName();
+			String extName = fileName.substring(fileName.indexOf(".")+1); // 从.后面一位开始读
+			System.out.println("extName:"+extName);
+			// 扩展名错误
+			if(!extNameLists.contains(extName)){
+				//抛出带message的异常
+				throw new InvalidExtNameException(fileName+"扩展名错误");
+			}
+		}
 	}
 	
 	/**

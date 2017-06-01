@@ -47,6 +47,8 @@
 </script>
 </head>
 <body>
+	<h4><font color="red">${message }</font></h4>
+	<br><br>
 	<form action="<%=request.getContextPath() %>/fileUploadServlet" method="post" enctype="multipart/form-data">
 		<table>
 			<tr class="file">
