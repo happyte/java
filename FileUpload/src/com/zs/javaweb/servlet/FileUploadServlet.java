@@ -1,7 +1,11 @@
 package com.zs.javaweb.servlet;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,10 +62,37 @@ public class FileUploadServlet extends HttpServlet {
 		
 		
 	}
+	
+	/**
+	 * 文件上传前的准备操作，得到filePath和InputStream
+	 * @param uploadFiles
+	 * @throws IOException 
+	 */
+	private void upload(Map<String, FileItem> uploadFiles) throws IOException {
+		for(Map.Entry<String, FileItem> uploadFile: uploadFiles.entrySet()){
+			String filePath = uploadFile.getKey();
+			FileItem fileItem = uploadFile.getValue();
+			upload(filePath, fileItem);
+		}
+	}
 
-	private void upload(Map<String, FileItem> uploadFiles) {
-		
-		
+	/**
+	 * 真实的上传操作，根据文件路径构建outputstream对象，获得fileItem的inputstream
+	 * @param filePath
+	 * @param fileItem
+	 * @throws IOException 
+	 */
+	private void upload(String filePath, FileItem fileItem) throws IOException {
+		System.out.println("文件路径:"+filePath);
+		InputStream in = fileItem.getInputStream();
+		OutputStream out = new FileOutputStream(filePath);
+		byte[] buffer = new byte[1024];
+		int len = 0;
+		while((len = in.read(buffer)) != -1){
+			out.write(buffer, 0, len);
+		}
+		in.close();
+		out.close();
 	}
 
 	private void validateExtNames(List<FileUploadBean> beans) {
@@ -74,17 +105,17 @@ public class FileUploadServlet extends HttpServlet {
 	 * @param items
 	 * @param uploadFiles
 	 * @return
+	 * @throws UnsupportedEncodingException 
 	 */
-	private List<FileUploadBean> buildFileUploadBeans(List<FileItem> items, Map<String, FileItem> uploadFiles) {
+	private List<FileUploadBean> buildFileUploadBeans(List<FileItem> items, Map<String, FileItem> uploadFiles) 
+			throws UnsupportedEncodingException {
 		Map<String, String> descs = new HashMap<>();
 		List<FileUploadBean> beans = new ArrayList<>();
 		for(FileItem item:items){
 			//如果是普通的表单域
 			if(item.isFormField()){
 				String fieldName = item.getFieldName();//desc1,desc2
-				String description = item.getString();
-				System.out.println("表单域fieldName:"+fieldName);
-				System.out.println("表单域description:"+description);
+				String description = item.getString("UTF-8");
 				//利用desc1,desc2 的1、2
 				descs.put(fieldName, description);
 			}
@@ -97,9 +128,6 @@ public class FileUploadServlet extends HttpServlet {
 				String description = descs.get(descName); //利用file1中的数字对应到desc1中的数字，从而查找上面存储的map中对应键的值
 				String fileName = item.getName(); //文件名
 				String filePath = getPath(fileName);
-				System.out.println("文件域fileName:"+fileName);
-				System.out.println("文件域filePath:"+filePath);
-				System.out.println("文件域description:"+description);
 				FileUploadBean bean = new FileUploadBean(fileName, filePath, description);
 				uploadFiles.put(bean.getFilePath(), item);
 				beans.add(bean);
