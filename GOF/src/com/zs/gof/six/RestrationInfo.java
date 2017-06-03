@@ -1,9 +1,7 @@
 package com.zs.gof.six;
 
-
 //报名信息类
 public class RestrationInfo implements Cloneable {
-
 	private String name;
 	private String birthday;
 	private String school;
@@ -34,6 +32,10 @@ public class RestrationInfo implements Cloneable {
 		this.name = name;
 		nationality = new Nationality();
 	}
+	//供克隆方法使用的私有构造函数
+	private RestrationInfo(Nationality nationality) throws CloneNotSupportedException{
+		this.nationality = (Nationality) nationality.clone();
+	}
 	//设置国籍
 	public void setNation(String nation){
 		nationality.setNation(nation);
@@ -45,10 +47,16 @@ public class RestrationInfo implements Cloneable {
 		System.out.println("身份证号:"+ID);
 		System.out.println("国籍:"+nationality.getNation());
 	}
+	
 	//实现Cloneable接口的clone方法
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
-		return super.clone();
+		RestrationInfo obj = new RestrationInfo(this.nationality);
+		obj.name = this.name;
+		obj.school = this.school;
+		obj.birthday = this.birthday;
+		obj.ID = this.ID;
+		return obj;
 	}
 	
 	public static void main(String[] args) throws CloneNotSupportedException {
@@ -58,12 +66,12 @@ public class RestrationInfo implements Cloneable {
 		restrationInfo1.setSchool("电子科技大学");
 		restrationInfo1.setID("123456");
 		restrationInfo1.setNation("中国");
-		restrationInfo1.Show();
-		System.out.println("=======================");
 		System.out.println("大树要报考厨师");
 		//clone出来的不是指向同一块内存, == 和 equals判断都为false,在不重新初始化对象的情况下动态获得对象在运行时的状态
 		RestrationInfo restrationInfo2 = (RestrationInfo) restrationInfo1.clone();
 		restrationInfo2.setNation("意大利");
+		restrationInfo1.Show();
+		System.out.println("=======================");
 		restrationInfo2.Show();
 	}
 }
