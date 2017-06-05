@@ -1,5 +1,7 @@
 package com.zs.gof.six;
 
+import java.util.Arrays;
+
 //报名信息类
 public class RestrationInfo implements Cloneable {
 	private String name;
@@ -73,5 +75,7 @@ public class RestrationInfo implements Cloneable {
 		restrationInfo1.Show();
 		System.out.println("=======================");
 		restrationInfo2.Show();
+		String[] arrays = new String[]{"4","7","9"};
+		System.out.println(Arrays.asList(arrays).contains("7"));
 	}
 }
