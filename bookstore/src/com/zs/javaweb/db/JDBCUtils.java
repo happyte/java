@@ -9,7 +9,7 @@ public class JDBCUtils {
 	private static ComboPooledDataSource dataSource = null;
 	
 	static{
-		dataSource = new ComboPooledDataSource();
+		dataSource = new ComboPooledDataSource("bookstoreapp");
 	}
 	
 	public static Connection getConnection(){  
