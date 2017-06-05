@@ -1,11 +1,11 @@
 package com.zs.javaweb.dao;
 
-import java.beans.Statement;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
@@ -43,7 +43,7 @@ public class BaseDao<T> implements Dao<T> {
 		ResultSet resultSet = null;
 		try {
 			connection = JDBCUtils.getConnection();
-			preparedStatement = connection.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS);
+			preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			if(args != null){
 				for(int i = 0; i < args.length; i++){
 					preparedStatement.setObject(i + 1, args[i]);
