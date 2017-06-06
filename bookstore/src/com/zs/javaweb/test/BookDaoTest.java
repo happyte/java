@@ -14,6 +14,7 @@ public class BookDaoTest {
 	
 	private BookDAOImpl bookDAOImpl = new BookDAOImpl();
 
+	//单元测试成功，数据库中的外键中外键所指向的键值的on delete属性设置为SET NULL,首先要保证外键所指向的那个键值是允许为NULL的
 	@Test
 	public void testInsert() {
 		String sql = "INSERT INTO trade (userId, tradetime) VALUES(?,?)";
