@@ -34,6 +34,7 @@ public class BookDaoImplTest {
 		System.out.println("num:"+num);
 	}
 
+	//单元测试通过，刚才没通过的原因是LIMIT前面需要有一个空格!
 	@Test
 	public void testGetPageList() {
 		CriteriaBook cb = new CriteriaBook(50, 60, 2);
@@ -41,9 +42,11 @@ public class BookDaoImplTest {
 		System.out.println("books:"+books);
 	}
 
+	//单元测试通过
 	@Test
 	public void testGetStoreNumber() {
-		fail("Not yet implemented");
+		int storeNumber = bookDAOImpl.getStoreNumber(5);
+		System.out.println("storeNumber:"+storeNumber);
 	}
 
 }

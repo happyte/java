@@ -32,8 +32,8 @@ public class BookDAOImpl extends BaseDao<Book> implements BookDao {
 	//带限制条件的查询,查询满足minPrice-maxPrice,且返回pageSize页的翻页类Page对象
 	@Override
 	public List<Book> getPageList(CriteriaBook cb, int pageSize) {
-		String sql = "SELECT id,author,title,price,publishingDate,salesAmount"
-				   +",storeNumber,remark FROM book WHERE price >= ? AND price <= ?"
+		String sql = "SELECT  id, author, title, price, publishingDate, salesAmount"
+				   +", storeNumber, remark FROM book WHERE price >= ? AND price <= ? "
 				   +"LIMIT ?,?";
 		return queryForList(sql, cb.getMinPrice(),cb.getMaxPrice(),(cb.getPageNo()-1)*pageSize,pageSize);
 	}
