@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript" src="script/jquery-3.2.1.js"></script>
+<script type="text/javascript">
+		$(function () {
+			$("a").click(function () {
+				var serializeVal = $(":hidden").serialize();
+				var href = this.href + "&" + serializeVal;
+				this.href = href;   //window.location.href = href无法改变a标签中的href
+			});
+		})
+</script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,8 +19,12 @@
 </head>
 <body>
 	<br><br>
+	<input type="hidden" name="minPrice" value="${param.minPrice }">
+	<input type="hidden" name="maxPrice" value="${param.maxPrice }">
  	<center>
-		<form action="" method="post">
+ 		<!-- 只在表单中设置minPrice和maxPrice，翻页时查询条件会丢 -->
+		<form action="bookServlet?method=getBooks" method="post">
+			
 			Price:<input type="text" size="5" name="minPrice">-
 			<input type="text" size="5" name="maxPrice">
 			<input type="submit" value="查找">
@@ -49,6 +63,7 @@
 			<a href="bookServlet?method=getBooks&pageNostr=${bookpage.totalPageNumber }">末页</a>
 			&nbsp;&nbsp;
 		</c:if>
+		转到<input type="text" size="5" id="pageNo">页
 		
 	</center> 
 </body>
