@@ -2,6 +2,7 @@ package com.zs.javaweb.web;
 
 import java.util.List;
 
+//
 public class Page<T> {
 	private int pageNo;    //当前页码
 	private List<T> list;  //本页要显示的数据

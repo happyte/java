@@ -44,6 +44,4 @@ public class CriteriaBook {
 		this.pageNo = pageNo;
 	}
 	
-	
-	
 }
