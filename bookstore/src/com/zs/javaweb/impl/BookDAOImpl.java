@@ -19,8 +19,14 @@ public class BookDAOImpl extends BaseDao<Book> implements BookDao {
 
 	@Override
 	public Page<Book> getPage(CriteriaBook cb) {
-		
-		return null;
+		//翻页类Page需要设置3个属性,totalItemNumber,pageNo,list
+		Page<Book> page = new Page<>(cb.getPageNo()); //初始化时把cb的当前页码
+		//设置查询到的总记录数
+		page.setTotalItemNumber(getTotalBookNumber(cb));
+		//为了防止当前页码不合法,这句话不设置的话，如果新建CriteriaBook对象页码不合法，getPageList(CriteriaBook cb, int pageSize)错误
+		cb.setPageNo(page.getPageNo());
+		page.setList(getPageList(cb, 3));  //为当前翻页类设置
+		return page;
 	}
 
 	@Override
