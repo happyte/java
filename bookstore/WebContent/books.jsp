@@ -5,9 +5,33 @@
 <script type="text/javascript">
 		$(function () {
 			$("a").click(function () {
-				var serializeVal = $(":hidden").serialize();
+				var serializeVal = $(":hidden").serialize();  //序列化的结果为minPrice=&maxPrice=
 				var href = this.href + "&" + serializeVal;
-				this.href = href;   //window.location.href = href无法改变a标签中的href
+				//this.href = href;   //window.location.href = href无法改变a标签中的href
+				window.location.href = href;
+				return false;
+			});
+			
+			$("#pageNo").change(function () {
+				var val = $(this).val();
+				val = $.trim(val);    //去掉前后的空格符号
+				var reg = /^\d+$/g;   //正则表达式,以数字开头结尾，且最少一个数字
+				//正则表达式匹配
+				if(!reg.test(val)){
+					$(this).val("");    //置为空
+					alert("输入的页码不合法");
+					return;
+				}
+				//如果输入的数字超过范围
+				var pageNo = parseInt(val);   //转化成数字
+				if(pageNo < 1 || pageNo > parseInt("${bookpage.totalPageNumber}")){
+					$(this).val("");    //置为空
+					alert("输入的页码不合法");
+					return;
+				}
+				var href = "bookServlet?method=getBooks&pageNostr=" + pageNo + "&" + $(":hidden").serialize()
+				window.location.href = href;
+				return false;
 			});
 		})
 </script>

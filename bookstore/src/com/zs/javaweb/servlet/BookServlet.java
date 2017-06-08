@@ -44,9 +44,6 @@ public class BookServlet extends HttpServlet {
 		String pageNostr = request.getParameter("pageNostr");
 		String minPriceStr = request.getParameter("minPrice");
 		String maxPriceStr = request.getParameter("maxPrice");
-		System.out.println("pageNostr:"+pageNostr);
-		System.out.println("minPriceStr:"+minPriceStr);
-		System.out.println("maxPriceStr:"+maxPriceStr);
 		int pageNo = 1;
 		int minPrice = 0;
 		int maxPrice = Integer.MAX_VALUE;
