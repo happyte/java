@@ -42,6 +42,21 @@ public class BookServlet extends HttpServlet {
 		}
 	}
 	
+	public void remove(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		String idString = request.getParameter("id");
+		int id = -1;
+		try {
+			id = Integer.parseInt(idString);
+		} catch (NumberFormatException e) {
+		}
+		if(id > 0){
+			ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+			bookService.remove(id, sc);
+			request.getRequestDispatcher("/cart.jsp").forward(request, response);
+		}
+	}
+	
 	//去购物车页经过的servlet处理
 	public void toCartPage(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{

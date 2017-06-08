@@ -21,10 +21,13 @@
 			<!--items是ShoppingCartItem的集合  -->
  			<c:forEach items="${sessionScope.ShoppingCart.items }" var="item">
 				<tr>
-					<td>${item.book.title }</td>
-					<td><input type="text" size="5" name="quantity" value="${item.quantity }"></td>
+					<td>${item.book.title}</td>
+					<td><input type="text" size="4" name="quantity" value="${item.quantity }"></td>
 					<td>${item.book.price }</td>
-					<td><a href="">删除</a></td>
+					<td>
+						<!-- 在整个项目中，pageNo参数是一直要带上的，id这里是为了找到删除哪本书的购物车记录 -->
+						<a href="bookServlet?method=remove&pageNo=${param.pageNo }&id=${item.book.id}">删除</a>
+					</td>
 				</tr>
 			</c:forEach> 
  			<tr>

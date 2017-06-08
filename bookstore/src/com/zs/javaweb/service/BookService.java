@@ -28,4 +28,11 @@ public class BookService {
 		}
 		return false;
 	}
+	
+	public void remove(int id,ShoppingCart sc){
+		Book book = bookDAOImpl.getBook(id);
+		if(book != null){
+			sc.removeItem(id);
+		}
+	}
 }
