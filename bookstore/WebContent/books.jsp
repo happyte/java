@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/commons/common.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script type="text/javascript" src="script/jquery-3.2.1.js"></script>
+
 <script type="text/javascript">
 		$(function () {
-			$("a").click(function () {
-				var serializeVal = $(":hidden").serialize();  //序列化的结果为minPrice=&maxPrice=
-				//this.href = href;   //window.location.href = href无法改变a标签中的href
-				window.location.href = this.href + "&" + serializeVal;
-				return false;
-			});
 			
 			$("#pageNo").change(function () {
 				var val = $(this).val();
@@ -28,7 +23,7 @@
 					alert("输入的页码不合法");
 					return;
 				}
-				window.location.href = "bookServlet?method=getBooks&pageNostr=" + pageNo + "&" + $(":hidden").serialize();
+				window.location.href = "bookServlet?method=getBooks&pageNo=" + pageNo + "&" + $(":hidden").serialize();
 				return false;
 			});
 		})
@@ -41,8 +36,6 @@
 </head>
 <body>
 	<br><br>
-	<input type="hidden" name="minPrice" value="${param.minPrice }">
-	<input type="hidden" name="maxPrice" value="${param.maxPrice }">
  	<center>
  		<!-- 只在表单中设置minPrice和maxPrice，翻页时查询条件会丢 -->
 		<form action="bookServlet?method=getBooks" method="post">
@@ -56,7 +49,7 @@
 			<c:forEach items="${requestScope.bookpage.list }" var="book">
 				<tr>
 					<td>
-						<a href="bookServlet?method=getBook&pageNostr=${bookpage.pageNo }&id=${book.id}">
+						<a href="bookServlet?method=getBook&pageNo=${bookpage.pageNo }&id=${book.id}">
 							${book.title }
 						</a>
 						<br>
@@ -76,15 +69,15 @@
 		当前第${bookpage.pageNo }页
 		&nbsp;&nbsp;
 		<c:if test="${bookpage.pageNo != 1 }">
-			<a href="bookServlet?method=getBooks&pageNostr=1">首页</a>
+			<a href="bookServlet?method=getBooks&pageNo=1">首页</a>
 			&nbsp;&nbsp;
-			<a href="bookServlet?method=getBooks&pageNostr=${bookpage.prePage }">上一页</a>
+			<a href="bookServlet?method=getBooks&pageNo=${bookpage.prePage }">上一页</a>
 			&nbsp;&nbsp;
 		</c:if>
 		<c:if test="${bookpage.pageNo != bookpage.totalPageNumber }">
-			<a href="bookServlet?method=getBooks&pageNostr=${bookpage.nextPage }">下一页</a>
+			<a href="bookServlet?method=getBooks&pageNo=${bookpage.nextPage }">下一页</a>
 			&nbsp;&nbsp;
-			<a href="bookServlet?method=getBooks&pageNostr=${bookpage.totalPageNumber }">末页</a>
+			<a href="bookServlet?method=getBooks&pageNo=${bookpage.totalPageNumber }">末页</a>
 			&nbsp;&nbsp;
 		</c:if>
 		转到<input type="text" size="5" id="pageNo">页

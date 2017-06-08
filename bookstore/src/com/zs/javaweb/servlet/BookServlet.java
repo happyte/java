@@ -59,7 +59,7 @@ public class BookServlet extends HttpServlet {
 	
 	public void getBooks(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		String pageNostr = request.getParameter("pageNostr");
+		String pageNostr = request.getParameter("pageNo");
 		String minPriceStr = request.getParameter("minPrice");
 		String maxPriceStr = request.getParameter("maxPrice");
 		int pageNo = 1;
