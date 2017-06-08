@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="/commons/common.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -35,9 +36,10 @@
 			</tr> 
 			<tr>
 				<td>
-					<a href="">继续购物</a>
+					<!-- 同样添加隐藏域和js操作，回到带查询条件的翻页 -->
+					<a href="bookServlet?method=getBooks&pageNo=${param.pageNo }">继续购物</a>
 					&nbsp;&nbsp;
-					<a href="">清空购物车</a>
+					<a href="bookServlet?method=clear&pageNo=${param.pageNo }">清空购物车</a>
 					&nbsp;&nbsp;
 					<a href="">结账</a>
 					&nbsp;&nbsp;

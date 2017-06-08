@@ -42,6 +42,7 @@ public class BookServlet extends HttpServlet {
 		}
 	}
 	
+	//删除购物车中的一本书的记录 
 	public void remove(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 		String idString = request.getParameter("id");
@@ -55,6 +56,15 @@ public class BookServlet extends HttpServlet {
 			bookService.remove(id, sc);
 			request.getRequestDispatcher("/cart.jsp").forward(request, response);
 		}
+	}
+	
+	//清空购物车中的所有记录
+	public void clear(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+		bookService.clear(sc);
+		//去emptyCart页面
+		response.sendRedirect(request.getContextPath() + "/empty.jsp");
 	}
 	
 	//去购物车页经过的servlet处理
