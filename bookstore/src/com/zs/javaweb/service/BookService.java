@@ -1,5 +1,6 @@
 package com.zs.javaweb.service;
 
+
 import com.zs.javaweb.domain.Book;
 import com.zs.javaweb.domain.CriteriaBook;
 import com.zs.javaweb.impl.BookDAOImpl;
@@ -11,5 +12,9 @@ public class BookService {
 	
 	public Page<Book> getPage(CriteriaBook cb){
 		return bookDAOImpl.getPage(cb);
+	}
+	
+	public Book getBook(int id){
+		return bookDAOImpl.getBook(id);
 	}
 }
