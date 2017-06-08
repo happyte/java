@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.zs.javaweb.domain.Book;
 import com.zs.javaweb.domain.CriteriaBook;
@@ -41,6 +42,13 @@ public class BookServlet extends HttpServlet {
 		}
 	}
 	
+	//去购物车页经过的servlet处理
+	public void toCartPage(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		request.getRequestDispatcher("/cart.jsp").forward(request, response);
+	}
+	
+	//加入购物车显示的url是bookServlet?method=addToCart&pageNo=1&id=3&title=Ruby&minPrice=&maxPrice=
 	public void addToCart(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
 		String idStr = request.getParameter("id");
@@ -95,12 +103,10 @@ public class BookServlet extends HttpServlet {
 		try {
 			pageNo = Integer.parseInt(pageNostr);
 		} catch (NumberFormatException e) {
-			
 		}
 		try {
 			minPrice = Integer.parseInt(minPriceStr);
 		} catch (NumberFormatException e) {
-			
 		}
 		try {
 			maxPrice = Integer.parseInt(maxPriceStr);
