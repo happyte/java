@@ -35,16 +35,25 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<center>
+		<h2>加入购物车</h2>
+		<c:if test="${!empty param.title }">
+		您已经将<font color="red">${param.title }</font>加入到购物车中
+		</c:if>
+		<br>
+		<c:if test="${!empty sessionScope.ShoppingCart.books }">
+		您的购物车中有${sessionScope.ShoppingCart.bookNumber }件商品,
+		<a href="">查看购物车</a>
+		</c:if>
+	</center>
 	<br><br>
  	<center>
  		<!-- 只在表单中设置minPrice和maxPrice，翻页时查询条件会丢 -->
 		<form action="bookServlet?method=getBooks" method="post">
-			
 			Price:<input type="text" size="5" name="minPrice">-
 			<input type="text" size="5" name="maxPrice">
 			<input type="submit" value="查找">
 		</form>
-		<br><br>
 		<table cellpadding="10">
 			<c:forEach items="${requestScope.bookpage.list }" var="book">
 				<tr>
@@ -59,7 +68,10 @@
 						${book.price }
 					</td>
 					<td>
-						<a href="">加入购物车</a>
+						<!-- 把id传过去是为了查找该本书，title是回显 -->
+						<a href="bookServlet?method=addToCart&pageNo=${bookpage.pageNo }&id=${book.id}&title=${book.title}">
+							加入购物车
+						</a>
 					</td>
 				</tr>
 			</c:forEach>

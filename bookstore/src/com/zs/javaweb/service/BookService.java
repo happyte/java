@@ -3,6 +3,7 @@ package com.zs.javaweb.service;
 
 import com.zs.javaweb.domain.Book;
 import com.zs.javaweb.domain.CriteriaBook;
+import com.zs.javaweb.domain.ShoppingCart;
 import com.zs.javaweb.impl.BookDAOImpl;
 import com.zs.javaweb.web.Page;
 
@@ -16,5 +17,15 @@ public class BookService {
 	
 	public Book getBook(int id){
 		return bookDAOImpl.getBook(id);
+	}
+	
+	public boolean addToCart(int id,ShoppingCart sc){
+		Book book = bookDAOImpl.getBook(id);
+		//判断该本书是存在的
+		if(book != null){
+			sc.add(book);
+			return true;
+		}
+		return false;
 	}
 }

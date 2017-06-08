@@ -9,8 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<input type="hidden" name="minPrice" value="${param.minPrice }">
-	<input type="hidden" name="maxPrice" value="${param.maxPrice }">
 	<center>
 		<br><br>
 		书名:${book.title }
@@ -23,7 +21,7 @@
 		<br><br>
 		评论:${book.remark }
 		<br><br>
-		<a href="bookServlet?method=getBooks&pageNostr=${param.pageNostr }">继续购物</a>
+		<a href="bookServlet?method=getBooks&pageNo=${param.pageNo }">继续购物</a>
 	</center>
 </body>
 </html>

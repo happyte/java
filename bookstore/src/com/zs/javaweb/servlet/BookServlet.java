@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.zs.javaweb.domain.Book;
 import com.zs.javaweb.domain.CriteriaBook;
+import com.zs.javaweb.domain.ShoppingCart;
 import com.zs.javaweb.service.BookService;
+import com.zs.javaweb.web.BookStoreWebUtils;
 import com.zs.javaweb.web.Page;
 
 
@@ -37,6 +39,30 @@ public class BookServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+	}
+	
+	public void addToCart(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		String idStr = request.getParameter("id");
+		int id = -1;
+		boolean flag = false;
+		try {
+			id = Integer.parseInt(idStr);
+		} catch (NumberFormatException e) {
+		}
+		//如果id是合法的
+		if (id > 0){
+			ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+			flag = bookService.addToCart(id, sc);
+		}
+		//成功往ShoppingCart中加书
+		if(flag){
+			//这里不能直接转发，不然拿不到getBooks方法中的page对象
+			getBooks(request, response);
+			return;
+		}
+		//错误的话，去error.jsp
+		response.sendRedirect(request.getContextPath()+"/error.jsp");
 	}
 	
 	public void getBook(HttpServletRequest request, HttpServletResponse response) 
