@@ -13,6 +13,33 @@
 			}
 			return false;
 		});
+		
+		//ajax修改单个商品的数量
+		$(":text").change(function () {
+			var quantityVal = $.trim(this.value);  //修改后的数量
+			var $tr = $(this).parent().parent();
+			var title = $.trim($tr.find("td:first").text());
+			var flag = confirm("确定要修改"+title+"的数量吗?");
+			//不修改的话恢复到之前未修改的值
+			if(!flag){
+				$(this).val($(this).attr("class")); //class属性存放着数量值
+				return;
+			}
+			//确认的话发送post请求到bookServlet
+			var url = "bookServlet";
+			//请求参数为method:updateItemQuantity,id:idVal,quantity:quantityVal
+			var idVal = $.trim(this.name); //id值
+			var args = {"method":"updateQuantity","id":idVal,"quantity":quantityVal};
+			//发送post请求
+			$.post(url,args,function(data){
+				var bookNumber = data.bookNumber;
+				var totalMoney = data.totalMoney;
+				//id是#号,class是.type是:
+				$("#bookNumber").text("您的购物车中有"+bookNumber+"本书");
+				$("#totalMoney").text("总金额:￥"+totalMoney);
+			},"JSON");
+			return false;
+		});
 	})
 </script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -24,7 +51,9 @@
 <body>
 	<center>
 		<h2>查看购物车</h2>
-		您的购物车中有${sessionScope.ShoppingCart.bookNumber }本书
+		<div id="bookNumber">
+			您的购物车中有${sessionScope.ShoppingCart.bookNumber }本书
+		</div>
  		<table cellpadding="10">
 			<tr>
 				<td>书名</td>
@@ -33,10 +62,12 @@
 				<td>&nbsp;</td>
 			</tr>
 			<!--items是ShoppingCartItem的集合  -->
- 			<c:forEach items="${sessionScope.ShoppingCart.items }" var="item">
+  			<c:forEach items="${sessionScope.ShoppingCart.items }" var="item">
 				<tr>
 					<td>${item.book.title}</td>
-					<td><input type="text" size="4" name="quantity" value="${item.quantity }"></td>
+					<td>
+						<input type="text" class="${item.quantity }" size="5" name="${item.book.id }" value="${item.quantity }">
+					</td>
 					<td>${item.book.price }</td>
 					<td>
 						<!-- 在整个项目中，pageNo参数是一直要带上的，id这里是为了找到删除哪本书的购物车记录 -->
@@ -46,12 +77,12 @@
 						</a>
 					</td>
 				</tr>
-			</c:forEach> 
+			</c:forEach>  
+  			<tr>
+				<td colspan="4" id="totalMoney">总金额:￥${sessionScope.ShoppingCart.totalMoney }</td>
+			</tr>  
  			<tr>
-				<td>总金额:￥${sessionScope.ShoppingCart.totalMoney }</td>
-			</tr> 
-			<tr>
-				<td>
+				<td colspan="4">
 					<!-- 同样添加隐藏域和js操作，回到带查询条件的翻页 -->
 					<a href="bookServlet?method=getBooks&pageNo=${param.pageNo }">继续购物</a>
 					&nbsp;&nbsp;
@@ -60,7 +91,7 @@
 					<a href="">结账</a>
 					&nbsp;&nbsp;
 				</td>
-			</tr>
+			</tr> 
 		</table> 
 	</center>
 </body>

@@ -2,6 +2,8 @@ package com.zs.javaweb.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.zs.javaweb.domain.Book;
 import com.zs.javaweb.domain.CriteriaBook;
 import com.zs.javaweb.domain.ShoppingCart;
@@ -40,6 +43,31 @@ public class BookServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+	}
+	
+	//Ajax更新书本的数量
+	public void updateQuantity(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		String idStr = request.getParameter("id");
+		String quantityStr = request.getParameter("quantity");
+		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+		int id = -1;
+		int quantity = -1;
+		try {
+			id = Integer.parseInt(idStr);
+			quantity = Integer.parseInt(quantityStr);
+		} catch (NumberFormatException e) {
+		}
+		if(id > 0 && quantity > 0)
+			bookService.updateQuantity(sc, id, quantity);
+		Map<String, Object> result = new HashMap<>();
+		result.put("bookNumber", sc.getBookNumber());
+		result.put("totalMoney", sc.getTotalMoney());
+		//把参数转化成json数据
+		Gson gson = new Gson();
+		String gsonStr = gson.toJson(result);
+		response.setContentType("text/javascript");
+		response.getWriter().println(gsonStr);
 	}
 	
 	//删除购物车中的一本书的记录 
