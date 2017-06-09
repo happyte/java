@@ -66,9 +66,13 @@
 			$.post(url,args,function(data){
 				var bookNumber = data.bookNumber;
 				var totalMoney = data.totalMoney;
+				var modifyValue = data.modifyValue;
 				//id是#号,class是.type是:
 				$("#bookNumber").text("您的购物车中有"+bookNumber+"本书");
 				$("#totalMoney").text("总金额:￥"+totalMoney);
+				//并没有修改掉值
+				$(this).attr("class",modifyValue);
+				$(this).attr("value",modifyValue);
 			},"JSON");
 			return false;
 		});
@@ -120,7 +124,7 @@
 					&nbsp;&nbsp;
 					<a href="bookServlet?method=clear&pageNo=${param.pageNo }">清空购物车</a>
 					&nbsp;&nbsp;
-					<a href="">结账</a>
+					<a href="bookServlet?method=toForwardPage&page=cash">结账</a>
 					&nbsp;&nbsp;
 				</td>
 			</tr> 

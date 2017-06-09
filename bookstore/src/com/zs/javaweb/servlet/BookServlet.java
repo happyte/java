@@ -45,6 +45,36 @@ public class BookServlet extends HttpServlet {
 		}
 	}
 	
+	//校验信息
+	public void cash(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		String username = request.getParameter("username");
+		String accountId = request.getParameter("accountId");
+		StringBuffer errors = new StringBuffer();
+		//第一步：校验表单输入是否为空
+		errors = validateFormField(username, accountId);
+		//第二步: 校验用户名和accountId是否对应
+		//第三步: 校验库存是否足够
+		//第四步: 校验余额是否足够
+		//校验出错
+		if(!errors.toString().equals("")){
+			request.setAttribute("errors", errors);
+			request.getRequestDispatcher("/cash.jsp").forward(request, response);
+			return;
+		}
+	}
+	
+	public StringBuffer validateFormField(String username,String accountId){
+		StringBuffer errors = new StringBuffer("");
+		if(username == null || username.trim().equals("")){
+			errors.append("用户名不能为空<br>");
+		}
+		if(accountId == null || accountId.trim().equals("")){
+			errors.append("账号不能为空<br>");
+		}
+		return errors;
+	}
+	
 	//Ajax更新书本的数量
 	public void updateQuantity(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
@@ -63,6 +93,7 @@ public class BookServlet extends HttpServlet {
 		Map<String, Object> result = new HashMap<>();
 		result.put("bookNumber", sc.getBookNumber());
 		result.put("totalMoney", sc.getTotalMoney());
+		result.put("modifyValue", quantity);
 		//把参数转化成json数据
 		Gson gson = new Gson();
 		String gsonStr = gson.toJson(result);
@@ -99,6 +130,12 @@ public class BookServlet extends HttpServlet {
 		bookService.clear(sc);
 		//去emptyCart页面
 		response.sendRedirect(request.getContextPath() + "/empty.jsp");
+	}
+	
+	public void toForwardPage(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException{
+		String name = request.getParameter("page");
+		request.getRequestDispatcher("/" + name + ".jsp").forward(request, response);
 	}
 	
 	//去购物车页经过的servlet处理
