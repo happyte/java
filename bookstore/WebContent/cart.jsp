@@ -2,6 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/commons/common.jsp" %>
+<script type="text/javascript">
+	$(function () {
+		$(".delete").click(function () {
+		    var $tr = $(this).parent().parent();
+			var title = $.trim($tr.find("td:first").text());
+			var flag = confirm("确定要删除"+title+"的信息吗?")
+			if(flag){
+				return true;
+			}
+			return false;
+		});
+	})
+</script>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,7 +40,10 @@
 					<td>${item.book.price }</td>
 					<td>
 						<!-- 在整个项目中，pageNo参数是一直要带上的，id这里是为了找到删除哪本书的购物车记录 -->
-						<a href="bookServlet?method=remove&pageNo=${param.pageNo }&id=${item.book.id}">删除</a>
+						<a href="bookServlet?method=remove&pageNo=${param.pageNo }&
+						id=${item.book.id}" class="delete">
+							删除
+						</a>
 					</td>
 				</tr>
 			</c:forEach> 

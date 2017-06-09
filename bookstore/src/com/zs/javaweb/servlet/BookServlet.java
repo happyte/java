@@ -54,6 +54,12 @@ public class BookServlet extends HttpServlet {
 		if(id > 0){
 			ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
 			bookService.remove(id, sc);
+			//所有的书的记录一条条都删除光了
+			if (sc.getBookNumber() == 0) {
+				//去emptyCart页面
+				response.sendRedirect(request.getContextPath() + "/empty.jsp");
+				return;
+			}
 			request.getRequestDispatcher("/cart.jsp").forward(request, response);
 		}
 	}
