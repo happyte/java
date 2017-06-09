@@ -17,8 +17,40 @@
 		//ajax修改单个商品的数量
 		$(":text").change(function () {
 			var quantityVal = $.trim(this.value);  //修改后的数量
+			var reg = /^\d+$/g;
+			var flag2 = false;
+			var quantity = -1;
+			//判断输入不合法的情况,两种情况，输入aaa,输入小于0的数
+			if(reg.test(quantityVal)){
+				quantity = parseInt(quantityVal);
+				if(quantity >= 0){
+					flag2 = true;
+				}
+			}
+			//false，输入不合法
+			if(!flag2){
+				alert("输入不合法");
+				$(this).val($(this).attr("class"));
+				return;
+			}
 			var $tr = $(this).parent().parent();
 			var title = $.trim($tr.find("td:first").text());
+			
+			//档修改的数量为0时，即quantity ＝ 0，应该删除该条记录，调用删除标签a的click方法
+			if(quantity == 0){
+				var flag =  confirm("确定要删除"+title+"吗?");
+				if(flag){
+					//得到节点a
+					var $a = $tr.find("td:last").find("a");
+					//调用节点a的click方法
+					$a[0].click();
+					return;
+				}
+				else{
+					$(this).val($(this).attr("class"));
+					return;
+				}
+			}
 			var flag = confirm("确定要修改"+title+"的数量吗?");
 			//不修改的话恢复到之前未修改的值
 			if(!flag){
