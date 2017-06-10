@@ -13,10 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
+import com.zs.javaweb.domain.Account;
 import com.zs.javaweb.domain.Book;
 import com.zs.javaweb.domain.CriteriaBook;
 import com.zs.javaweb.domain.ShoppingCart;
+import com.zs.javaweb.domain.ShoppingCartItem;
+import com.zs.javaweb.domain.User;
+import com.zs.javaweb.service.AccountService;
 import com.zs.javaweb.service.BookService;
+import com.zs.javaweb.service.UserService;
 import com.zs.javaweb.web.BookStoreWebUtils;
 import com.zs.javaweb.web.Page;
 
@@ -27,6 +32,10 @@ public class BookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private BookService bookService = new BookService();
+	
+	private UserService userService = new UserService();
+	
+	private AccountService accountService = new AccountService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
@@ -53,9 +62,19 @@ public class BookServlet extends HttpServlet {
 		StringBuffer errors = new StringBuffer();
 		//第一步：校验表单输入是否为空
 		errors = validateFormField(username, accountId);
-		//第二步: 校验用户名和accountId是否对应
-		//第三步: 校验库存是否足够
-		//第四步: 校验余额是否足够
+		//没有报错
+		if(errors.toString().equals("")){
+			//第二步: 校验用户名和accountId是否对应
+			errors = validateUser(username, accountId);
+			//第三步: 校验库存是否足够
+			if(errors.toString().equals("")){
+				errors = validateStoreNumber(request);
+				if(errors.toString().equals("")){
+					errors = validateBalance(request, accountId);
+				}
+			}
+			//第四步: 校验余额是否足够
+		}
 		//校验出错
 		if(!errors.toString().equals("")){
 			request.setAttribute("errors", errors);
@@ -64,7 +83,38 @@ public class BookServlet extends HttpServlet {
 		}
 	}
 	
-	public StringBuffer validateFormField(String username,String accountId){
+	//校验余额
+	private StringBuffer validateBalance(HttpServletRequest request, String accountId) {
+		StringBuffer errors = new StringBuffer("");
+		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+		System.out.println("accountId:"+Integer.parseInt(accountId));
+		Account account = accountService.getAccount(Integer.parseInt(accountId));
+		System.out.println("account:"+account);
+		//购物车所需的钱大于余额
+		System.out.println("购物花费:"+sc.getTotalMoney());
+		System.out.println("余额:"+account.getBalance());
+		if(sc.getTotalMoney() > account.getBalance()){
+			errors.append("余额不足");
+		}
+		return errors;
+	}
+
+	//校验库存
+	private StringBuffer validateStoreNumber(HttpServletRequest request) {
+		StringBuffer errors = new StringBuffer("");
+		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+		for(ShoppingCartItem item:sc.getItems()){
+			int quantity = item.getQuantity();   //该本书在购物车中的数量，与数据库中的该本书的storeNumber对比
+			int storeNumber = item.getBook().getStoreNumber(); //数据库中该本书的storeNumber
+			if(quantity > storeNumber){
+				errors.append(item.getBook().getTitle()+"库存不足<br>");
+			}
+		}
+		return errors;
+	}
+
+	//校验用户名表单是否为空
+	private StringBuffer validateFormField(String username,String accountId){
 		StringBuffer errors = new StringBuffer("");
 		if(username == null || username.trim().equals("")){
 			errors.append("用户名不能为空<br>");
@@ -75,9 +125,14 @@ public class BookServlet extends HttpServlet {
 		return errors;
 	}
 	
-	public StringBuffer validateUser(String username,String accountId){
+	//校验用户名和账号是否匹配
+	private StringBuffer validateUser(String username,String accountId){
 		StringBuffer errors = new StringBuffer("");
 		//根据accountId查询出对应的Account对象
+		User user = userService.getUser(username);
+		if(!accountId.equals(""+user.getAccountId())){
+			errors.append("用户名和账号不匹配");
+		}
 		return errors;
 	}
 	
