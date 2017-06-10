@@ -1,11 +1,14 @@
 package com.zs.javaweb.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.zs.javaweb.dao.BaseDao;
 import com.zs.javaweb.dao.BookDao;
 import com.zs.javaweb.domain.Book;
 import com.zs.javaweb.domain.CriteriaBook;
+import com.zs.javaweb.domain.ShoppingCartItem;
 import com.zs.javaweb.web.Page;
 
 public class BookDAOImpl extends BaseDao<Book> implements BookDao {
@@ -48,6 +51,21 @@ public class BookDAOImpl extends BaseDao<Book> implements BookDao {
 	public int getStoreNumber(int id) {
 		String sql = "SELECT storeNumber FROM book WHERE id = ?";
 		return getSingleVal(sql, id);
+	}
+
+	@Override
+	public void batchUpdateStoreNumberAndSalesAmount(Collection<ShoppingCartItem> items) {
+		String sql = "UPDATE book SET salesAmount = salesAmount + ? ," + 
+					"storeNumber = storeNumber - ? WHERE id = ?";
+		List<ShoppingCartItem> shoppingCartItems = new ArrayList<>(items);
+		//有多少条购物车记录，就需要修改多少个Book对象，参数有3个
+		Object[][] params = new Object[items.size()][3];
+		for(int i = 0; i < shoppingCartItems.size(); i++){
+			params[i][0] = shoppingCartItems.get(i).getQuantity();
+			params[i][1] = shoppingCartItems.get(i).getQuantity();
+			params[i][2] = shoppingCartItems.get(i).getBook().getId();
+		}
+		batch(sql, params);
 	}
 
 }

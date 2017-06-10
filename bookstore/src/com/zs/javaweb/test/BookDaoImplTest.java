@@ -2,12 +2,15 @@ package com.zs.javaweb.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
 
 import com.zs.javaweb.domain.Book;
 import com.zs.javaweb.domain.CriteriaBook;
+import com.zs.javaweb.domain.ShoppingCartItem;
 import com.zs.javaweb.impl.BookDAOImpl;
 import com.zs.javaweb.web.Page;
 
@@ -54,6 +57,27 @@ public class BookDaoImplTest {
 	public void testGetStoreNumber() {
 		int storeNumber = bookDAOImpl.getStoreNumber(5);
 		System.out.println("storeNumber:"+storeNumber);
+	}
+	
+	@Test
+	public void testBatchUpdateStoreNumberAndSalesAmount(){
+		Collection<ShoppingCartItem> items = new ArrayList<>();
+		Book book = bookDAOImpl.getBook(1);
+		ShoppingCartItem item = new ShoppingCartItem(book);
+		item.setQuantity(5);
+		items.add(item);
+		
+		book = bookDAOImpl.getBook(2);
+		item = new ShoppingCartItem(book);
+		item.setQuantity(10);
+		items.add(item);
+		
+		book = bookDAOImpl.getBook(3);
+		item = new ShoppingCartItem(book);
+		item.setQuantity(15);
+		items.add(item);
+		
+		bookDAOImpl.batchUpdateStoreNumberAndSalesAmount(items);
 	}
 
 }

@@ -1,9 +1,12 @@
 package com.zs.javaweb.dao;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.zs.javaweb.domain.Book;
 import com.zs.javaweb.domain.CriteriaBook;
+import com.zs.javaweb.domain.ShoppingCart;
+import com.zs.javaweb.domain.ShoppingCartItem;
 import com.zs.javaweb.web.Page;
 
 public interface BookDao {
@@ -42,4 +45,10 @@ public interface BookDao {
 	  * @return
 	  */
 	 int getStoreNumber(int id);
+	 
+	 /**
+	  * 根据传入的ShoppingCartItem集合，来批量更新数据库中的storeNumber和salesamount
+	  * @param items
+	  */
+	 void batchUpdateStoreNumberAndSalesAmount(Collection<ShoppingCartItem> items);
 }
