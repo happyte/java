@@ -71,7 +71,7 @@ public class ShoppingCart {
 	}
 	
 	//计算购物车中的总额
-	public float getTotalMoney(){
+	public int getTotalMoney(){
 		int totalMoney = 0;
 		for(ShoppingCartItem item:books.values()){
 			totalMoney += item.getItemMoney();

@@ -81,6 +81,9 @@ public class BookServlet extends HttpServlet {
 			request.getRequestDispatcher("/cash.jsp").forward(request, response);
 			return;
 		}
+		//校验成功后，需要进行一系列事务操作
+		bookService.cash(request, username, accountId);
+		response.sendRedirect(request.getContextPath()+"/success.jsp");
 	}
 	
 	//校验余额
