@@ -16,7 +16,7 @@ public class TradeDaoImpl extends BaseDao<Trade> implements TradeDao {
 
 	@Override
 	public Collection<Trade> getTradeWithUserId(Integer userId) {
-		String sql = "SELECT tradeId, userId, tradeTime WHERE userId = ?";
+		String sql = "SELECT tradeId, userId, tradeTime FROM trade WHERE userId = ?";
 		return queryForList(sql, userId);
 	}
 
