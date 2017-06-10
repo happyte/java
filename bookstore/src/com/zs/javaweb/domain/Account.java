@@ -20,10 +20,12 @@ public class Account {
 		this.accountId = accountId;
 		this.balance = balance;
 	}
+	public Account() {
+		
+	}
 	@Override
 	public String toString() {
 		return "Account [accountId=" + accountId + ", balance=" + balance + "]";
 	}
-	
 
 }

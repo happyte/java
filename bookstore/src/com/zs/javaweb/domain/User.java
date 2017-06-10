@@ -33,5 +33,7 @@ public class User {
 		this.username = username;
 		this.accountId = accountId;
 	}
-	
+	public User() {
+
+	}
 }

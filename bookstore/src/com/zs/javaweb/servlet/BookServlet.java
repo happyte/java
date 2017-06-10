@@ -75,6 +75,12 @@ public class BookServlet extends HttpServlet {
 		return errors;
 	}
 	
+	public StringBuffer validateUser(String username,String accountId){
+		StringBuffer errors = new StringBuffer("");
+		//根据accountId查询出对应的Account对象
+		return errors;
+	}
+	
 	//Ajax更新书本的数量
 	public void updateQuantity(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException{
