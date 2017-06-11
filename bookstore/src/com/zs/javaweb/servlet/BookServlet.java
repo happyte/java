@@ -94,8 +94,6 @@ public class BookServlet extends HttpServlet {
 		Account account = accountService.getAccount(Integer.parseInt(accountId));
 		System.out.println("account:"+account);
 		//购物车所需的钱大于余额
-		System.out.println("购物花费:"+sc.getTotalMoney());
-		System.out.println("余额:"+account.getBalance());
 		if(sc.getTotalMoney() > account.getBalance()){
 			errors.append("余额不足");
 		}

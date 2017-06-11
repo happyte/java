@@ -68,6 +68,8 @@ public class BookService {
 		//1.批量更新book数据表的salesAmount和storeNumber
 		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
 		bookDAOImpl.batchUpdateStoreNumberAndSalesAmount(sc.getItems());
+		//故意出错，查看事务操作是否统一
+		//int j = 10/0;
 		//2.更新余额
 		accountDaoImpl.updateBalance(Integer.parseInt(accountId), sc.getTotalMoney());
 		//3.插入trade记录 

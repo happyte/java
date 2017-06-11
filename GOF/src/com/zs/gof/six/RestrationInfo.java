@@ -75,7 +75,10 @@ public class RestrationInfo implements Cloneable {
 		restrationInfo1.Show();
 		System.out.println("=======================");
 		restrationInfo2.Show();
-		String[] arrays = new String[]{"4","7","9"};
-		System.out.println(Arrays.asList(arrays).contains("7"));
+		String a = "aaa";
+		String b = a;
+		b = "bbb";
+		System.out.println("a:"+a);
+		System.out.println("b:"+b);
 	}
 }
