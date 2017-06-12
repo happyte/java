@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<!-- package: struts2 使用package来组织模块，name是必须带的属性，用于其它包的引用,extends当前包继承哪个包
+		通常情况下继承struts-default -->
+    <package name="helloworld" extends="struts-default">
+    	<!-- 配置一个action:一个struts2的请求就是一个action -->
+    	<action name="product-input">
+    		<result>/WEB-INF/pages/input.jsp</result>
+    	</action>
+    	
+    	<action name="product-save" class="com.zs.struts.helloworld.Product" method="save">
+    		<result name="details">/WEB-INF/pages/details.jsp</result>
+    	</action>
+    </package>
+</struts>
