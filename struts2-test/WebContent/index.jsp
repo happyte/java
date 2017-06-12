@@ -8,5 +8,7 @@
 </head>
 <body>
 	<a href="product-input.action">Product Input</a>
+	<br><br>
+	<a href="test.action">Test</a>
 </body>
 </html>

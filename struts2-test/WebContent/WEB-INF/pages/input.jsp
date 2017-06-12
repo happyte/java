@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form action="product-save.action" method="post">
-		ProductName:<input type="text" name="productName">
+		ProductName:<input type="text" name="productName"> <!-- 对应Java类的setProductName方法 -->
 		<br><br>
 		
 		ProductDesc:<input type="text" name="productDesc">

@@ -8,10 +8,10 @@
 </head>
 <body>
 	
-	ProductId:${productId }
+	ProductId:${productId }   
 	<br><br>
 	
-	ProductName:${productName }
+	ProductName:$<%=request.getParameter("productName") %>  <!-- 等同于request.getAttribute("productName),也等同于request.getParameter("productName") -->
 	<br><br>
 	
 	ProductDesc:${productDesc }

@@ -5,16 +5,31 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
-	<!-- package: struts2 使用package来组织模块，name是必须带的属性，用于其它包的引用,extends当前包继承哪个包
-		通常情况下继承struts-default -->
+	<!-- package: struts2 使用package来组织模块，name是必须带的属性，用于其它包的引用,
+		 extends当前包继承哪个包,通常情况下继承struts-default
+		 namespace属性是可选的，没有给出默认以／，若namespace是非默认值，则调用action就必须把属性定义的命名空间加到url字符串中 
+		 class默认值:com.opensymphony.xwork2.ActionSupport
+		 method默认值:execute
+		 result:结果
+	-->
     <package name="helloworld" extends="struts-default">
     	<!-- 配置一个action:一个struts2的请求就是一个action -->
-    	<action name="product-input">
-    		<result>/WEB-INF/pages/input.jsp</result>
+    	<action name="product-input" class="com.opensymphony.xwork2.ActionSupport" method="execute">
+    		<!-- 
+    			result:表示action方法执行后可能返回的一个结果，一个action节点可能会有多个子节点
+    			多个子节点使用name来区分
+    			name:标识一个result,和action方法的返回值对应, 默认值为SUCCESS
+    			type:默认都是转发,重定向redirect就过不来
+    		 -->
+    		<result name="success" type="dispatcher">/WEB-INF/pages/input.jsp</result>
     	</action>
     	
     	<action name="product-save" class="com.zs.struts.helloworld.Product" method="save">
     		<result name="details">/WEB-INF/pages/details.jsp</result>
+    	</action>
+    	
+    	<action name="test" class="com.zs.struts.helloworld.Product" method="test">
+    		<result name="test">/index.jsp</result>
     	</action>
     </package>
 </struts>
