@@ -7,17 +7,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="product-input.action">Product Input</a>
+	<h4>Test ActionContext Page</h4>
+	
+	application: ${applicationScope.applicationKey }
 	<br><br>
 	
-	<a href="test.action">Test</a>
+	session: ${sessionScope.sessionKey }
 	<br><br>
 	
-	<a href="TestActionContext.action?name=happyte">Test Action Context</a>
+	request: ${requestScope.requestKey }
 	<br><br>
 	
-	<a href="TestAwareAction">Test Action Context</a>
-	<br><br>
+	name:${parameters.name }
 	
 </body>
 </html>

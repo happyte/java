@@ -31,5 +31,13 @@
     	<action name="test" class="com.zs.struts.helloworld.Product" method="test">
     		<result name="test">/index.jsp</result>
     	</action>
+    	
+    	<action name="TestActionContext" class="com.zs.struts.helloworld.TestActionContextAction" method="execute">
+    		<result name="success">/test-actionTestContext.jsp</result>
+    	</action>
+    	
+    	<action name="TestAwareAction" class="com.zs.struts.helloworld.TestAwareAction" method="execute">
+    		<result>/test-actionTestContext.jsp</result>
+    	</action>
     </package>
 </struts>
