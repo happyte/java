@@ -5,6 +5,9 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 
 <struts>
+	<!-- 配置Struts2可以受理的请求的扩展名,加,允许没有扩展名 -->
+	<constant name="struts.action.extension" value="action,do,"></constant>
+
 	<!-- package: struts2 使用package来组织模块，name是必须带的属性，用于其它包的引用,
 		 extends当前包继承哪个包,通常情况下继承struts-default
 		 namespace属性是可选的，没有给出默认以／，若namespace是非默认值，则调用action就必须把属性定义的命名空间加到url字符串中 

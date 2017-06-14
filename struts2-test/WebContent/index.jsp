@@ -16,7 +16,7 @@
 	<a href="TestActionContext.action?name=happyte">Test Action Context</a>
 	<br><br>
 	
-	<a href="TestAwareAction">Test Action Context</a>
+	<a href="TestAwareAction.do">Test Action Context</a>
 	<br><br>
 	
 </body>
