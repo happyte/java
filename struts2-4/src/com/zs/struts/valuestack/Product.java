@@ -39,12 +39,13 @@ public class Product {
 	}
 	public String save(){
 		ValueStack valueStack = ActionContext.getContext().getValueStack();
-		System.out.println("---------:"+ActionContext.getContext().getContextMap().get("request"));
+		//System.out.println("---------:"+ActionContext.getContext().getContextMap().get("request"));
 		Test test = new Test();
 		test.setProductDesc("blog");
 		test.setProductName("happyte");
 		test.setProductPrice(2000);
 		valueStack.push(test);
+		this.setProductId(1001);
 		return "success";
 	}
 }

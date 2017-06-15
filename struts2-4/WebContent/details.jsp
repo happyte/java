@@ -13,7 +13,7 @@
 	ProductName:<s:property value="productName"/>
 	<br><br>
 	
-	ProductName:<s:property value="test.productName"/>
+	ProductName:<s:property value="[1].productName"/>
 	<br><br>
 	
 	ProductDesc:<s:property value="[0].productDesc"/>
@@ -25,6 +25,24 @@
 	ProductPrice:<s:property value="[0].productPrice"/>
 	<br><br>
 	
+	value:<s:property value="#parameters.name[0]"/>
+	<br>
+	session:<s:property value="#session.date"/>
+	<br>
+	<s:url value="/testUrl" var="url">
+		<!-- 对于value值，会自动进行OGNL解析,若不希望进行OGNL解析，则用单引号(双引号里面再加单引号) -->
+		<s:param name="productName" value="'productName'"></s:param>
+	</s:url>
+	${url }
+	<br>
+	<!-- 构建一个请求action的地址 -->
+	<s:url action="testAction" namespace="/hello"  method="save" var="url2"></s:url>
+	${url2 }
+	<br>
+	
+	<s:url value="testUrl" var="url3" includeParams="all"></s:url>
+	${url3 }
+	<br>
 	
 </body>
 </html>
