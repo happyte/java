@@ -10,5 +10,9 @@
     	<action name="product-save" class="com.zs.struts.valuestack.Product" method="save">
     		<result>/details.jsp</result>
     	</action>
+    	
+    	<action name="save" class="com.zs.struts.valuestack.UserAction" method="save">
+    		<result name="input">/form-tag.jsp</result>
+    	</action>
     </package>
 </struts>
