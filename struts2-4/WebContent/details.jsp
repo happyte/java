@@ -1,3 +1,4 @@
+<%@page import="com.zs.struts.valuestack.PersonComparator"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.zs.struts.valuestack.Person"%>
@@ -92,8 +93,32 @@
 		${status.index}--${name }--${age }<br>
 	</s:iterator>
 	<br><br>
+	<s:iterator value="persons">
+		${name }--${age }<br>
+	</s:iterator>
 	<br><br>
+	s:sort 对集合中的对象排序
+	<%
+		PersonComparator pc = new PersonComparator();
+		request.setAttribute("comparator", pc);
+	%>
+	<!-- var是放到域对象中的key的值 -->
+	<s:sort comparator="#request.comparator" source="persons" var="persons2"></s:sort>
+	<br>
+	<s:iterator value="#attr.persons2">
+		${name }--${age }<br>
+	</s:iterator>
 	<br><br>
+	s:date 可以对Date对象进行排版
+	<br>
+	<s:date name="#session.date" format="yyyy-MM-dd hh:mm:ss" var="date2"/>
+	date:${date2 }
+	<br><br>
+	<s:iterator value="persons">
+		<!-- 使用%进行强制OGNL解析 -->
+		<s:a href="getAction?name=%{name}">${name }</s:a>
+	</s:iterator>
+	
 	
 </body>
 </html>
