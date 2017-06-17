@@ -14,5 +14,10 @@
     	<action name="save" class="com.zs.struts.valuestack.UserAction" method="save">
     		<result name="input">/form-tag.jsp</result>
     	</action>
+    	
+    	<action name="emp-*" class="com.zs.struts.app.Employee" method="{1}">
+    		<result name="{1}">/emp-{1}.jsp</result>
+    	</action>
+    	
     </package>
 </struts>

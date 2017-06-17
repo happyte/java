@@ -21,5 +21,6 @@
 	<%
 		session.setAttribute("date", new Date());
 	%>
+	<a href="emp-input.action">emp-input</a>
 </body>
 </html>
