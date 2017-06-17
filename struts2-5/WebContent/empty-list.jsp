@@ -33,7 +33,7 @@
 					<td>${firstName }</td>
 					<td>${lastName }</td>
 					<td>${email }</td>
-					<td><a href="">Edit</a></td>
+					<td><a href="empty-edit.action?employeeId=${employeeId }">Edit</a></td>
 					<td><a href="empty-delete.action?employeeId=${employeeId }">Delete</a></td>
 				</tr>
 			</s:iterator>
