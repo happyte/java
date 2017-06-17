@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<!-- 配置Struts2可以受理的请求的扩展名,加,允许没有扩展名 -->
+ 	<constant name="struts.action.extension" value="action,do,"></constant>
+
+    <package name="helloworld" extends="struts-default">
+    	<action name="empty-*" class="com.zs.struts.app.EmployeeAction" method="{1}">
+    		<result name="{1}">/empty-{1}.jsp</result>
+    		<!-- 重定向到empty-list.jsp，因为并不需要保存先前的状态,不知道为什么重定向empty-list后面不能带上.jsp -->
+    		<result name="success" type="redirectAction">empty-list</result>
+    	</action>
+    </package>
+</struts>
