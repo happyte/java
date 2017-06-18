@@ -6,9 +6,10 @@ import java.util.Map;
 import org.apache.struts2.interceptor.RequestAware;
 
 import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
 
-public class EmployeeAction implements RequestAware, ModelDriven<Employee> {
+public class EmployeeAction implements RequestAware, ModelDriven<Employee>,Preparable {
 	
 	private Employee employee;
 	private Integer employeeId;
@@ -25,13 +26,21 @@ public class EmployeeAction implements RequestAware, ModelDriven<Employee> {
 	}
 	
 	public String delete(){
-		dao.delete(employee.getEmployeeId());
+		dao.delete(employeeId);
 		return "success";
+	}
+	
+	public void prepareSave(){
+		employee = new Employee();
 	}
 	
 	public String save(){
 		dao.save(employee);
 		return "success";
+	}
+	//先调用prepare[ActionMethod]方法，再调用prepare方法
+	public void prepareEdit(){
+		employee = dao.get(employeeId);
 	}
 	
 	public String edit(){
@@ -45,7 +54,12 @@ public class EmployeeAction implements RequestAware, ModelDriven<Employee> {
 		return "edit";
 	}
 	
+	public void prepareUpdate(){
+		employee = new Employee();
+	}
+	
 	public String update(){
+		dao.update(employee);
 		return "success";
 	}
 	
@@ -59,12 +73,15 @@ public class EmployeeAction implements RequestAware, ModelDriven<Employee> {
 	
 	@Override
 	public Employee getModel() {
+		return employee;
+	}
+	
+	//执行getModel前的准备方法
+	@Override
+	public void prepare() throws Exception {
+		System.out.println("prepare...........");
 		//若判定标准为employeeId这个请求参数，若有该参数，则视为Edit,没有视为Create
 		// 如果想通过employeeId来判断，需要在ModelDriven拦截器前先执行一个params拦截器
-		if(employeeId == null)
-			employee = new Employee();
-		else
-			employee = dao.get(employeeId);
-		return employee;
+		
 	}
 }

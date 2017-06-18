@@ -10,7 +10,17 @@
 
     <package name="helloworld" extends="struts-default">
     	<!-- 配置使用paramsPrepareParamsStack作为默认的拦截器栈 -->
-    	<default-interceptor-ref name="paramsPrepareParamsStack"></default-interceptor-ref>
+    	<!-- 修改PrepareInterceptor拦截器的alwaysInvokePrepare属性值为false -->
+    	<interceptors>
+    		<interceptor-stack name="zsstack">
+    			<interceptor-ref name="paramsPrepareParamsStack">
+    				<param name="prepare.alwaysInvokePrepare">flase</param>
+    			</interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
+    	
+    	<default-interceptor-ref name="zsstack"></default-interceptor-ref>
+    	
     	<action name="empty-*" class="com.zs.struts.app.EmployeeAction" method="{1}">
     		<result name="{1}">/empty-{1}.jsp</result>
     		<!-- 重定向到empty-list.jsp，因为并不需要保存先前的状态,不知道为什么重定向empty-list后面不能带上.jsp -->
