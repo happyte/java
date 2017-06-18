@@ -37,14 +37,10 @@ public class EmployeeAction implements RequestAware, ModelDriven<Employee> {
 	public String edit(){
 		//1.获取传入employeeId:empolyee.getEmpolyeeId()
 		//2.根据employeeId获取employee对象
-		Employee emp = dao.get(employee.getEmployeeId());
 		//3.把栈顶对象的属性装配好:此时栈顶对象为employee,只有employeeId属性传进来
 		/**
 		 * struts2表单回显：从值栈栈顶开始查找匹配的属性，若找到，则添加到value属性中
 		 */
-		employee.setFirstName(emp.getFirstName());
-		employee.setLastName(emp.getLastName());
-		employee.setEmail(emp.getEmail());
 		//不能直接用employee = dao.get(employee.getEmployeeId()),这样的话employee和值栈栈顶元素不是同一个了
 		return "edit";
 	}
