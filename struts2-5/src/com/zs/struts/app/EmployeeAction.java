@@ -49,6 +49,10 @@ public class EmployeeAction implements RequestAware, ModelDriven<Employee> {
 		return "edit";
 	}
 	
+	public String update(){
+		return "success";
+	}
+	
 	public void setEmployeeId(Integer employeeId) {
 		this.employeeId = employeeId;
 	}
@@ -59,7 +63,6 @@ public class EmployeeAction implements RequestAware, ModelDriven<Employee> {
 	
 	@Override
 	public Employee getModel() {
-		System.out.println("employeeId:"+employeeId);
 		//若判定标准为employeeId这个请求参数，若有该参数，则视为Edit,没有视为Create
 		// 如果想通过employeeId来判断，需要在ModelDriven拦截器前先执行一个params拦截器
 		if(employeeId == null)

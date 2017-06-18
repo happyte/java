@@ -10,7 +10,7 @@
 <body>
 	<s:debug></s:debug>
 	<br>
-	<s:form action="empty-update.action">
+	<s:form action="empty-update">
 		<s:hidden name="employeeId"></s:hidden>
 		<s:textfield name="firstName" label="First Name"></s:textfield>
 		<s:textfield name="lastName" label="Last Name"></s:textfield>

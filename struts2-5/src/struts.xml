@@ -7,24 +7,21 @@
 <struts>
 	<!-- 配置Struts2可以受理的请求的扩展名,加,允许没有扩展名 -->
  	<constant name="struts.action.extension" value="action,do,"></constant>
-	
-	<!-- 配置使用paramsPrepareParamsStack作为默认的拦截器栈 -->
-<!--  	<interceptors>
-		    <interceptor-stack name="atguigustack">
-		        <interceptor-ref name="paramsPrepareParamsStack">
-		            <param name="prepare.alwaysInvokePrepare">false</param>
-		        </interceptor-ref>
-		    </interceptor-stack>
-	</interceptors> -->
 
     <package name="helloworld" extends="struts-default">
+    	<!-- 配置使用paramsPrepareParamsStack作为默认的拦截器栈 -->
+    	<default-interceptor-ref name="paramsPrepareParamsStack"></default-interceptor-ref>
     	<action name="empty-*" class="com.zs.struts.app.EmployeeAction" method="{1}">
     		<result name="{1}">/empty-{1}.jsp</result>
     		<!-- 重定向到empty-list.jsp，因为并不需要保存先前的状态,不知道为什么重定向empty-list后面不能带上.jsp -->
     		<result name="success" type="redirectAction">empty-list</result>
     	</action>
+    	<!-- 奇怪的是下面两个action方法竟然无法使用上面的通配符和精确匹配,需要单独写两个action配置 -->
       	<action name="empty-edit" class="com.zs.struts.app.EmployeeAction" method="edit">
     		<result name="edit">/empty-edit.jsp</result>
+    	</action> 
+    	<action name="empty-update" class="com.zs.struts.app.EmployeeAction" method="update">
+    		<result name="success" type="redirectAction">empty-list</result>
     	</action> 
     </package>
 </struts>
