@@ -9,10 +9,13 @@
 </head>
 <body>
 	<s:debug></s:debug>
+	<s:actionerror/>
 	
 	<s:form action="testValidation" theme="simple">
 		<s:fielderror fieldName="age"></s:fielderror>
 		Age:<s:textfield name="age" label="Age"></s:textfield><br>
+		Password:<s:password name="password"></s:password><br>
+		Password2:<s:password name="password2"></s:password><br>
 		<s:submit></s:submit>
 	</s:form>
 </body>
