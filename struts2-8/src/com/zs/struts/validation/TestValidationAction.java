@@ -9,6 +9,13 @@ public class TestValidationAction extends ActionSupport{
 	private int age;
 	private String password;
 	private String password2;
+	private Integer count;
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+	public Integer getCount() {
+		return count;
+	}
 	public void setPassword(String password) {
 		this.password = password;
 	}

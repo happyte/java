@@ -15,6 +15,15 @@
 		</field-validator>
 	</field>
 	
+	<field name="count">
+		<field-validator type="int">
+			<param name="min">1</param>
+			<param name="max">10</param>
+			<message key="error.int"></message>
+		</field-validator>
+	</field>
+	
+	
 	<validator type="expression">
 		<param name="expression"><![CDATA[password==password2]]></param>
 		<message>Password is not equal with password2</message>
