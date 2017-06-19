@@ -10,6 +10,13 @@ public class TestValidationAction extends ActionSupport{
 	private String password;
 	private String password2;
 	private Integer count;
+	private String idCard;
+	public String getIdCard() {
+		return idCard;
+	}
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
 	public void setCount(Integer count) {
 		this.count = count;
 	}

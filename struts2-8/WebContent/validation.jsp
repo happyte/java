@@ -14,10 +14,12 @@
 	<s:form action="testValidation" theme="simple">
 		<s:fielderror fieldName="age"></s:fielderror>
 		<s:fielderror fieldName="count"></s:fielderror>
+		<s:fielderror fieldName="idCard"></s:fielderror>
 		Age:<s:textfield name="age" label="Age"></s:textfield><br>
 		Count:<s:textfield name="count" label="Count"></s:textfield><br>
 		Password:<s:password name="password"></s:password><br>
 		Password2:<s:password name="password2"></s:password><br>
+		idCard:<s:textfield name="idCard"></s:textfield><br>
 		<s:submit></s:submit>
 	</s:form>
 </body>

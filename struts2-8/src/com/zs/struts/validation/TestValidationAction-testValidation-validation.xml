@@ -23,6 +23,11 @@
 		</field-validator>
 	</field>
 	
+	<field name="idCard">
+		<field-validator type="idcard">
+			<message>非法身份证输入</message>
+		</field-validator>
+	</field>
 	
 	<validator type="expression">
 		<param name="expression"><![CDATA[password==password2]]></param>
