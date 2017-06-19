@@ -1,0 +1,17 @@
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.2//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+        
+<validators>
+	<field name="age">
+		<!-- 设置短路验证，若当前验证没有通过，则不再进行下面的验证 -->
+		<field-validator type="conversion" short-circuit="true">
+			<message>Conversion Error Occurred</message>
+		</field-validator>
+		<field-validator type="int">
+			<param name="min">20</param>
+			<param name="max">60</param>
+			<message key="error.int"></message>
+		</field-validator>
+	</field>
+</validators>
