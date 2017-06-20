@@ -10,6 +10,10 @@
 	
     <package name="default" namespace="/" extends="struts-default">
     	<interceptors>
+    	
+    		<interceptor name="hello" class="com.zs.struts.interceptors.MyInterceptor">
+    		</interceptor>
+    	
     		<interceptor-stack name="zs">
     			<interceptor-ref name="defaultStack">
     				<param name="fileUpload.maximumSize">2097152</param>
@@ -26,6 +30,7 @@
     	</action>
     	
     	<action name="testTokenAction" class="com.zs.struts.token.app.TokenAction">
+    		<interceptor-ref name="hello"></interceptor-ref>
     		<interceptor-ref name="token"></interceptor-ref>
     		<interceptor-ref name="defaultStack"></interceptor-ref>
     		<result>/success.jsp</result>
