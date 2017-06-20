@@ -24,6 +24,13 @@
     		<result>/success.jsp</result>
     		<result name="input">/upload.jsp</result>
     	</action>
+    	
+    	<action name="testTokenAction" class="com.zs.struts.token.app.TokenAction">
+    		<interceptor-ref name="token"></interceptor-ref>
+    		<interceptor-ref name="defaultStack"></interceptor-ref>
+    		<result>/success.jsp</result>
+    		<result name="invalid.token">/token-error.jsp</result>
+    	</action>
     </package>
     
 </struts>

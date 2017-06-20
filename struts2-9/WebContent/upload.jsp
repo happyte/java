@@ -11,6 +11,7 @@
 	<s:debug></s:debug>
 	<s:form action="testUploadAction" method="post" enctype="multipart/form-data" theme="simple">
 		<s:fielderror name="ppt"></s:fielderror>
+		<s:actionerror/>
 		PPT:<s:file name="ppt" label="PPT"></s:file><br>
 		Desc:<s:textfield name="pptDesc[0]" label="PPTDESC"></s:textfield><br>
 		
