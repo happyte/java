@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<!-- 国际化资源配置 -->
+	<constant name="struts.custom.i18n.resources" value="i18n"></constant>
+	
+    <package name="default" namespace="/" extends="struts-default">
+    	<interceptors>
+    		<interceptor-stack name="zs">
+    			<interceptor-ref name="defaultStack">
+    				<param name="fileUpload.maximumSize">2097152</param>
+    				<param name="fileUpload.allowedExtensions">txt,html,pptx</param>
+    			</interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
+    	
+    	<default-interceptor-ref name="zs"></default-interceptor-ref>
+    	
+    	<action name="testUploadAction" class="com.zs.struts.upload.app.UploadAction">
+    		<result>/success.jsp</result>
+    		<result name="input">/upload.jsp</result>
+    	</action>
+    </package>
+    
+</struts>
