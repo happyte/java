@@ -12,9 +12,10 @@ public class MyInterceptor extends AbstractInterceptor {
 		System.out.println("before invocation.invoke.......");
 		//如果不调用inoke方法，则后面的拦截器都不会调用，比如token表单重复验证的拦截器
 		String result = arg0.invoke();
+		System.out.println("result:"+result);
 		System.out.println("after invocation.invoke.......");
 		//刚才return result不行
-		return "success";
+		return result;
 	}
 
 }
