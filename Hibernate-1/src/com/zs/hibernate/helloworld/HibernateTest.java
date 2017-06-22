@@ -1,6 +1,8 @@
 package com.zs.hibernate.helloworld;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 
 import javax.security.auth.Destroyable;
 
@@ -8,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.jdbc.Work;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.After;
@@ -164,6 +167,17 @@ public class HibernateTest {
 		news1.setAuthor("XXX");
 		news2.setAuthor("OOO");
 		session.evict(news1);
+	}
+	
+	@Test
+	public void testDoWork(){
+		session.doWork(new Work() {
+			
+			@Override
+			public void execute(Connection connection) throws SQLException {
+				System.out.println(connection);
+			}
+		});
 	}
 
 }
