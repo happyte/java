@@ -1,12 +1,32 @@
 package com.zs.hibernate.helloworld;
 
-import java.sql.Date;
+import java.sql.Blob;
+import java.util.Date;
 
 public class News {
 	private Integer id;
 	private String author;
 	private String title;
 	private Date date;
+	private String desc;
+	//大文本
+	private String content;
+	//二进制数据
+	private Blob image;
+	
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	public Blob getImage() {
+		return image;
+	}
+	public void setImage(Blob image) {
+		this.image = image;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -30,6 +50,13 @@ public class News {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	public String getDesc() {
+		return desc;
+	}
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 	public News(String author, String title, Date date) {
 		super();
