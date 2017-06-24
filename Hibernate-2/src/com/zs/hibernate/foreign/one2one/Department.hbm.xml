@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2017-6-24 14:57:00 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="com.zs.hibernate.foreign.one2one">
+    <class name="Department" table="DEPARTMENT">
+    
+        <id name="deptId" type="java.lang.Integer">
+            <column name="DEPT_ID" />
+            <generator class="native" />
+        </id>
+        
+        <property name="deptName" type="java.lang.String">
+            <column name="DEPT_NAME" />
+        </property>
+        
+        <!-- 使用many-to-one映射一对一关系 -->
+		<many-to-one name="mgr" class="Manager" column="MANAGER_ID" unique="true"></many-to-one>
+    </class>
+</hibernate-mapping>

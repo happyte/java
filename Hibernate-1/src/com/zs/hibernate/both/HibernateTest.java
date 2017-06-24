@@ -37,14 +37,13 @@ public class HibernateTest {
 	
 	@Test
 	public void testCascade(){
-		Customer customer = (Customer) session.get(Customer.class, 3);
-		customer.getOrders().clear();
+		
 	}
 	
 	@Test
 	public void testDelete(){
 		//在不设定级联关系的情况下, 且 1 这一端的对象有 n 的对象在引用, 不能直接删除 1 这一端的对象
-		Customer customer = (Customer) session.get(Customer.class, 1);
+		Customer customer = (Customer) session.get(Customer.class, 3);
 		session.delete(customer); 
 	}
 	
@@ -68,7 +67,7 @@ public class HibernateTest {
 	
 	@Test
 	public void testMany2OneGet(){
-		Customer customer = (Customer) session.get(Customer.class, 2);
+		Customer customer = (Customer) session.get(Customer.class, 4);
 		System.out.println(customer.getCustomerName());
 		System.out.println(customer.getOrders().size());
 		
@@ -92,8 +91,8 @@ public class HibernateTest {
 		customer.getOrders().add(order2);
 		
 		session.save(customer);
-		session.save(order1);
-		session.save(order2);
+		//session.save(order1);
+		//session.save(order2);
 	}
 	
 
