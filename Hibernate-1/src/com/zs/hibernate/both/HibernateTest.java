@@ -10,59 +10,91 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
 public class HibernateTest {
-	
-	private SessionFactory sessionFactory = null;
-	private Session session = null;
-	private Transaction transaction = null;
+
+	private SessionFactory sessionFactory;
+	private Session session;
+	private Transaction transaction;
 	
 	@Before
 	public void init(){
-		System.out.println("before...");
-		//1). 创建 Configuration 对象: 对应 hibernate 的基本配置信息和 对象关系映射信息
 		Configuration configuration = new Configuration().configure();
-		//2). 创建一个 ServiceRegistry 对象: hibernate 4.x 新添加的对象
-		//hibernate 的任何配置和服务都需要在该对象中注册后才能有效.
 		ServiceRegistry serviceRegistry = 
 				new ServiceRegistryBuilder().applySettings(configuration.getProperties())
-						                    .buildServiceRegistry();
-		//3).
+				                            .buildServiceRegistry();
 		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-		//2. 创建一个 Session 对象
+		
 		session = sessionFactory.openSession();
-		//3. 开启事务
 		transaction = session.beginTransaction();
 	}
 	
 	@After
 	public void destroy(){
-		System.out.println("after...");
-		//5. 提交事务 
 		transaction.commit();
-		//6. 关闭 Session
 		session.close();
-		//7. 关闭 SessionFactory 对象
 		sessionFactory.close();
 	}
-
+	
 	@Test
-	public void testMany2OneSave(){
-		
+	public void testCascade(){
+		Customer customer = (Customer) session.get(Customer.class, 3);
+		customer.getOrders().clear();
+	}
+	
+	@Test
+	public void testDelete(){
+		//在不设定级联关系的情况下, 且 1 这一端的对象有 n 的对象在引用, 不能直接删除 1 这一端的对象
+		Customer customer = (Customer) session.get(Customer.class, 1);
+		session.delete(customer); 
+	}
+	
+	@Test
+	public void testUpdat2(){
+		Customer customer = (Customer) session.get(Customer.class, 1);
+		customer.getOrders().iterator().next().setOrderName("GGG"); 
+	}
+	
+	@Test
+	public void testUpdate(){
+		Customer customer = (Customer) session.get(Customer.class, 2);
+		customer.getOrders().iterator().next().setOrderName("XXX");
+	}
+	
+	@Test
+	public void testOne2ManyGet(){
+		Order order = (Order) session.get(Order.class, 3);
+		order.getCustomer().setCustomerName("happyte");
 	}
 	
 	@Test
 	public void testMany2OneGet(){
+		Customer customer = (Customer) session.get(Customer.class, 2);
+		System.out.println(customer.getCustomerName());
+		System.out.println(customer.getOrders().size());
 		
 	}
 	
 	@Test
-	public void testMany2OneUpdate(){
+	public void testMany2OneSave(){
+		Customer customer = new Customer();
+		customer.setCustomerName("AAA");
 		
+		Order order1 = new Order();
+		order1.setOrderName("ORDER-1");
+		
+		Order order2 = new Order();
+		order2.setOrderName("ORDER-2");
+		
+		order1.setCustomer(customer);
+		order2.setCustomer(customer);
+		
+		customer.getOrders().add(order1);
+		customer.getOrders().add(order2);
+		
+		session.save(customer);
+		session.save(order1);
+		session.save(order2);
 	}
 	
-	@Test
-	public void testMany2OneDelete(){
-		
-	}
+
 }
