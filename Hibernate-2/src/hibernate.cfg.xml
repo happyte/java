@@ -37,8 +37,11 @@
 		<!-- <mapping resource="com/zs/hibernate/foreign/one2one/Department.hbm.xml"/>
 		<mapping resource="com/zs/hibernate/foreign/one2one/Manager.hbm.xml"/> -->
 		
-		<mapping resource="com/zs/hibernate/primary/one2one/Department.hbm.xml"/>
-		<mapping resource="com/zs/hibernate/primary/one2one/Manager.hbm.xml"/>
+<!-- 		<mapping resource="com/zs/hibernate/primary/one2one/Department.hbm.xml"/>
+		<mapping resource="com/zs/hibernate/primary/one2one/Manager.hbm.xml"/> -->
+		
+		<mapping resource="com/zs/hibernate/n2n/Category.hbm.xml"/>
+		<mapping resource="com/zs/hibernate/n2n/Item.hbm.xml"/>
     	
     </session-factory>
 </hibernate-configuration>
