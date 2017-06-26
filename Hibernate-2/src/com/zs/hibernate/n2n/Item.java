@@ -1,8 +1,12 @@
 package com.zs.hibernate.n2n;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Item {
 	private Integer id;
 	private String name;
+	private Set<Category> categories = new HashSet<>();
 	public Integer getId() {
 		return id;
 	}
@@ -14,6 +18,12 @@ public class Item {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public Set<Category> getCategories() {
+		return categories;
+	}
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
 	}
 	
 }

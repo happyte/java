@@ -14,5 +14,12 @@
             <column name="NAME" />
         </property>
         
+        <!-- 两个集合元素set的table元素的值必须指定而且相同 -->
+        <set name="categories" table="CATEGORIES_ITEMS" inverse="true">
+        	<key>
+        		<column name="I_ID"></column>
+        	</key>
+        	<many-to-many class="com.zs.hibernate.n2n.Category" column="C_ID"></many-to-many>
+        </set>
     </class>
 </hibernate-mapping>
