@@ -1,5 +1,7 @@
 package com.zs.hibernate.n2n;
 
+import java.util.Set;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -9,6 +11,7 @@ import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.validator.PublicClassValidator;
 
 public class HibernateTest {
 	
@@ -53,6 +56,12 @@ public class HibernateTest {
 		category1.getItems().add(item1);
 		category1.getItems().add(item2);
 		category2.getItems().add(item1);
+		category2.getItems().add(item2);
+		
+		item1.getCategories().add(category1);
+		item1.getCategories().add(category2);
+		item2.getCategories().add(category1);
+		item2.getCategories().add(category2);
 		
 		session.save(category1);
 		session.save(category2);
@@ -60,6 +69,13 @@ public class HibernateTest {
 		session.save(item2);
 	}
 	
+	@Test
+	public void testGet(){
+		Category category = (Category) session.get(Category.class, 1);
+		
+		Set<Item> items = category.getItems();
+		System.out.println(items.size());
+	}
 	
 
 }
