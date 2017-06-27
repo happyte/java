@@ -28,4 +28,6 @@
         </many-to-one>
         
     </class>
+    
+    <query name="salaryEmps"><![CDATA[FROM Employee e WHERE e.salary >:minSal AND e.salary < :maxSal]]></query>
 </hibernate-mapping>
