@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.internal.SessionFactoryObserverChain;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.After;
@@ -122,6 +123,75 @@ public class HibernateTest {
 		for(Object[] objs:result){
 			System.out.println(Arrays.asList(objs));
 		}
+	}
+	
+	//HQL(迫切)左外连接
+	@Test
+	public void testLeftJoinFetch(){
+		//不加SELECT DISTINCT查询出来的结果是重复的
+		String hql = "SELECT DISTINCT d FROM Department d LEFT JOIN FETCH d.emps";
+		Query query = session.createQuery(hql);
+		List<Department> depts = query.list();
+		System.out.println(depts.size());
+		for(Department dept:depts){
+			System.out.println(dept.getName()+"-"+dept.getEmps().size());
+		}
+	}
+	
+	//左外连接
+	@Test
+	public void testLeftJoin(){
+		String hql = "SELECT DISTINCT d FROM Department d LEFT JOIN d.emps";
+		Query query = session.createQuery(hql);
+		List<Department> depts = query.list();
+		System.out.println(depts.size());
+		for(Department dept:depts){
+			//开始的时候d.emps并没有初始化，迫切左外连接是初始化的
+			System.out.println(dept.getName()+"-"+dept.getEmps().size());
+		}
+	}
+	
+	//HQL(迫切)内连接
+	@Test
+	public void testInnerJoinFetch(){
+		//不加SELECT DISTINCT查询出来的结果是重复的
+		String hql = "SELECT DISTINCT d FROM Department d INNER JOIN FETCH d.emps";
+		Query query = session.createQuery(hql);
+		List<Department> depts = query.list();
+		System.out.println(depts.size());
+		for(Department dept:depts){
+			//d.emps为空不打印，迫切左外连接是全部打印的
+			System.out.println(dept.getName()+"-"+dept.getEmps().size());
+		}
+	}
+	
+	//内连接 
+	@Test
+	public void testInnerJoin(){
+		String hql = "SELECT DISTINCT d FROM Department d INNER JOIN d.emps";
+		Query query = session.createQuery(hql);
+		List<Department> depts = query.list();
+		System.out.println(depts.size());
+		for(Department dept:depts){
+			//开始的时候d.emps并没有初始化，迫切左外连接是初始化的
+			System.out.println(dept.getName()+"-"+dept.getEmps().size());
+		}
+	}
+	
+	//耳机缓存测试
+	@Test
+	public void testHibernateSecondLevelCache(){
+		Employee employee = (Employee) session.get(Employee.class, 20);
+		System.out.println(employee.getName());
+		
+		transaction.commit();
+		session.close();
+		
+		session = sessionFactory.openSession();
+		transaction = session.beginTransaction();
+		
+		Employee employee2 = (Employee) session.get(Employee.class, 20);
+		System.out.println(employee2.getName());
 	}
 
 }
