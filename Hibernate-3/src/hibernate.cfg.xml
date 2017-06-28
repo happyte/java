@@ -41,10 +41,15 @@
 		<property name="hibernate.cache.region.factory_class">
 		org.hibernate.cache.ehcache.EhCacheRegionFactory</property>	
 		
+		<!-- 配置启用查询缓存 -->
+		<property name="cache.use_query_cache">true</property>
+		
 		<mapping resource="com/zs/hibernate/entities/Department.hbm.xml"/>
 		<mapping resource="com/zs/hibernate/entities/Employee.hbm.xml"/>
     	
     	<class-cache usage="read-write" class="com.zs.hibernate.entities.Employee"/>
+    	<class-cache usage="read-write" class="com.zs.hibernate.entities.Department"/>
+    	<collection-cache usage="read-write" collection="com.zs.hibernate.entities.Department.emps"/>
     	
     </session-factory>
 </hibernate-configuration>

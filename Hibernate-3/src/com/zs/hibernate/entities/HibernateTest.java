@@ -4,17 +4,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Conjunction;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.internal.SessionFactoryObserverChain;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.validator.PublicClassValidator;
+
 
 
 public class HibernateTest {
@@ -178,7 +186,42 @@ public class HibernateTest {
 		}
 	}
 	
-	//耳机缓存测试
+	@Test
+	public void testQBC(){
+		Criteria criteria = session.createCriteria(Employee.class);
+		//添加查询条件
+		criteria.add(Restrictions.eq("email", "FAKLS")); // where this_.EMAIL=?  and this_.SALARY>?
+		criteria.add(Restrictions.gt("salary", 1000F));
+		//唯一的一条记录
+		Employee employee = (Employee) criteria.uniqueResult();
+		System.out.println(employee);
+	}
+	
+	@Test
+	public void testQBC2(){
+		Criteria criteria = session.createCriteria(Employee.class);
+		//1.AND:使用Conjunction表示
+		Conjunction conjunction = Restrictions.conjunction();
+		conjunction.add(Restrictions.like("email", "A",MatchMode.ANYWHERE));
+		Department dept = new Department();
+		dept.setId(3);
+		conjunction.add(Restrictions.eq("dept", dept));
+		
+		//2.OR
+		criteria.add(conjunction);
+		System.out.println(conjunction);
+		System.out.println(criteria.list());
+	}
+	
+	@Test
+	public void testQBC3(){
+		Criteria criteria = session.createCriteria(Employee.class);
+		//统计查询
+		criteria.setProjection(Projections.max("salary"));
+		System.out.println(criteria.uniqueResult());
+	}
+	
+	//二级缓存测试
 	@Test
 	public void testHibernateSecondLevelCache(){
 		Employee employee = (Employee) session.get(Employee.class, 20);
@@ -192,6 +235,37 @@ public class HibernateTest {
 		
 		Employee employee2 = (Employee) session.get(Employee.class, 20);
 		System.out.println(employee2.getName());
+	}
+	
+	//集合的二级缓存测试
+	@Test
+	public void testCollectionSecondLevelCache(){
+		Department dept = (Department) session.get(Department.class, 5);
+		System.out.println(dept.getName());
+		System.out.println(dept.getEmps().size());
+		
+		transaction.commit();
+		session.close();
+		
+		session = sessionFactory.openSession();
+		transaction = session.beginTransaction();
+		
+		Department dept2= (Department) session.get(Department.class, 5);
+		System.out.println(dept2.getName());
+		System.out.println(dept2.getEmps().size());
+	}
+	
+	//HQL和QBC默认是不使用二级缓存的，需要加设置
+	@Test
+	public void testQueryCache(){
+		Query query = session.createQuery("FROM Employee");
+		query.setCacheable(true);
+		
+		List<Employee> emps = query.list();
+		System.out.println(emps.size());
+		
+		emps = query.list();
+		System.out.println(emps.size());
 	}
 
 }
