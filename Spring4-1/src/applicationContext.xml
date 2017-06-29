@@ -4,8 +4,20 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- 配置bean -->
+	<!-- 
+	 -->
 	<bean id="helloWorld" class="com.zs.spring.beans.HelloWorld">
 		<property name="name" value="Spring4"></property>
+	</bean>
+	
+	<bean id="car" class="com.zs.spring.beans.Car">
+		<constructor-arg value="Audi" index="0"></constructor-arg>
+		<constructor-arg value="30000" type="double"></constructor-arg>
+	</bean>
+	
+	<bean id="car2" class="com.zs.spring.beans.Car">
+		<constructor-arg value="BWM" index="0"></constructor-arg>
+		<constructor-arg value="100" type="int"></constructor-arg>
 	</bean>
 
 </beans>
