@@ -17,5 +17,11 @@ public class Main {
 		System.out.println(car);
 		car = (Car) ctx.getBean("car2");
 		System.out.println(car);
+		
+		Person person = ctx.getBean(Person.class);
+		System.out.println(person);
+		
+		DataSource dataSource = ctx.getBean(DataSource.class);
+		System.out.println(dataSource);
 	}
 }

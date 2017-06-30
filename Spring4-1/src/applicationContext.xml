@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 	
 	<!-- 配置bean -->
 	<!-- 
@@ -16,8 +18,39 @@
 	</bean>
 	
 	<bean id="car2" class="com.zs.spring.beans.Car">
-		<constructor-arg value="BWM" index="0"></constructor-arg>
+		<constructor-arg index="0">
+			<value><![CDATA[BWM^]]></value>
+		</constructor-arg>
 		<constructor-arg value="100" type="int"></constructor-arg>
 	</bean>
+	
+	<bean id="person" class="com.zs.spring.beans.Person">
+		<property name="name" value="happyte"></property>
+		<property name="age" value="24"></property>
+		<property name="car">
+			<!-- 引用bean -->
+<!-- 			<ref bean="car2"/> -->
+			<!-- 内部类引用bean -->
+			<bean class="com.zs.spring.beans.Car">
+				<constructor-arg value="Bens"></constructor-arg>
+				<constructor-arg value="500000"></constructor-arg>
+			</bean>
+		</property>
+		<!-- 为级联属性赋值,属性需要先初始化，再赋值 -->
+		<property name="car.price" value="300000"></property>
+	</bean>
+	
+	<bean id="dataSource" class="com.zs.spring.beans.DataSource">
+		<property name="properties">
+			<props>
+				<prop key="user">root</prop>
+				<prop key="password">123</prop>
+				<prop key="jdbcUrl">jdbc:sql///</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 配置单例的集合bean, util:list, 以供多个bean使用 -->
+
 
 </beans>

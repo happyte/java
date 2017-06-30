@@ -4,6 +4,14 @@ public class Car {
 	private String name;
 	private double price;
 	private int speed;
+	
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
 
 	public Car(String name, double price) {
 		super();
