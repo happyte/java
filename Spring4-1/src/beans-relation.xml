@@ -3,13 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+
+	<!-- 可以加abstract属性，不能被实例化，就是用来被继承的,如果class没有被声明，那必须是个抽象类 -->
 	<bean id="address" class="com.zs.spring.autowire.Address" p:city="Shanghai"
 	p:street="JiangSuLu"></bean>
 	
-	<bean id="car" class="com.zs.spring.autowire.Car" p:brand="Bens"
-	p:price="500000"></bean>
-	
-	<bean id="person" class="com.zs.spring.autowire.Person"
-	p:name="Happyte" p:address-ref="address" depends-on="car"></bean>
+	<!-- bean配置的继承 -->
+	<bean id="address2" p:city="Beijing" p:street="NanJingLu" parent="address"></bean>
 </beans>
