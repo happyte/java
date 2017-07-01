@@ -13,6 +13,7 @@
 		<config>src/beans-properties.xml</config>
 		<config>src/beans-spel.xml</config>
 		<config>src/beans-annotaion.xml</config>
+		<config>src/beans-generic.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
