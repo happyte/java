@@ -2,7 +2,7 @@ package com.zs.spring.aop.impl;
 
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("arithmeticCalculator")
 public class ArithmeticCalculatorImpl implements ArithmeticCalculator{
 
 	@Override
