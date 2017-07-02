@@ -12,7 +12,7 @@ public class Main {
 		int result = arithmeticCalculator.add(3, 6);
 		System.out.println(result);
 		
-		result = arithmeticCalculator.div(6, 0);
+		result = arithmeticCalculator.div(6, 1);
 		System.out.println(result);
 				
 	}

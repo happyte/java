@@ -8,12 +8,18 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 //放到IOC容器中，再声明为一个切面
 @Aspect
 @Component
 public class LoggingAspect {
+	
+	//定义一个方法，用于声明切入点表达式，该方法不需要添加任何代码
+	@Pointcut("execution(public int com.zs.spring.aop.impl.ArithmeticCalculatorImpl.*(int, int))")
+	public void declareJointPointExpression(){}
+	
 	//该方法是个前置通知，在目标方法前执行,*匹配所有该参数的方法
 	@Before("execution(public int com.zs.spring.aop.impl.ArithmeticCalculatorImpl.*(int, int))")
 	public void breforeMethod(JoinPoint joinpoint){
