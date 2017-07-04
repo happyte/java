@@ -17,5 +17,6 @@
 	
 		<!-- 指定自动生成数据表的策略 -->
 		<property name="hbm2ddl.auto">update</property>
+		
     </session-factory>
 </hibernate-configuration>

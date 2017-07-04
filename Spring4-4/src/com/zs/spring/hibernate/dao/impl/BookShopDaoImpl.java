@@ -1,8 +1,5 @@
 package com.zs.spring.hibernate.dao.impl;
 
-
-import javax.security.auth.login.AccountException;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,8 +11,7 @@ import com.zs.spring.hibernate.exception.BookStockException;
 import com.zs.spring.hibernate.exception.UserAccountException;
 
 
-//持久化层
-@Repository("bookShopDao")
+@Repository
 public class BookShopDaoImpl implements BookShopDao {
 	
 	@Autowired
@@ -29,32 +25,32 @@ public class BookShopDaoImpl implements BookShopDao {
 	public int findBookPriceByIsbn(String isbn) {
 		String hql = "SELECT b.price FROM Book b WHERE b.isbn = ?";
 		Query query = getSession().createQuery(hql).setString(0, isbn);
-		return (int) query.uniqueResult();
+		return (Integer)query.uniqueResult();
 	}
 
 	@Override
 	public void updateBookStock(String isbn) {
-		//检查书的库存
-		String hql = "SELECT b.stock FROM Book b WHERE b.stock = ?";
-		int stock = (int) getSession().createQuery(hql).setString(0, isbn).uniqueResult();
+		String hql2 = "SELECT b.stock FROM Book b WHERE b.isbn = ?";
+		int stock = (int) getSession().createQuery(hql2).setString(0, isbn).uniqueResult();
 		if(stock == 0){
-			throw new BookStockException("库存不足");
+			throw new BookStockException("库存不足!");
 		}
-		//更新库存
-		String hql2 = "UPDATE Book b SET b.stock = b.stock-1 WHERE b.isbn = ?";
-		getSession().createQuery(hql2).setString(0, isbn).executeUpdate();
+		
+		String hql = "UPDATE Book b SET b.stock = b.stock - 1 WHERE b.isbn = ?";
+		getSession().createQuery(hql).setString(0, isbn).executeUpdate();
 	}
 
 	@Override
-	public void updateUserAccount(String username, int price){
-		//检查余额
-		String hql = "SELECT a.balance FROM Account a WHERE a.username = ?";
-		int balance = (int) getSession().createQuery(hql).setString(0, username).uniqueResult();
+	public void updateUserAccount(String username, int price) {
+		String hql2 = "SELECT a.balance FROM Account a WHERE a.username = ?";
+		int balance = (int) getSession().createQuery(hql2).setString(0, username).uniqueResult();
 		if(balance < price){
-			throw new UserAccountException("库存不足");
+			throw new UserAccountException("余额不足!");
 		}
-		String hql2 = "UPDATE Account a SET a.balance = a.balance - ? WHERE a.username = ?";
-		getSession().createQuery(hql2).setInteger(0, price).setString(1, username).executeUpdate();
+		
+		String hql = "UPDATE Account a SET a.balance = a.balance - ? WHERE a.username = ?";
+		getSession().createQuery(hql).setInteger(0, price).setString(1, username).executeUpdate();
 	}
 
 }
+
