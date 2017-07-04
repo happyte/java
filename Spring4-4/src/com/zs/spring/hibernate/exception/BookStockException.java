@@ -1,4 +1,4 @@
-package com.zs.spring.xml.copy;
+package com.zs.spring.hibernate.exception;
 
 public class BookStockException extends RuntimeException{
 

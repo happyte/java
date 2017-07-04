@@ -1,4 +1,4 @@
-package com.zs.spring.xml.copy;
+package com.zs.spring.hibernate.dao;
 
 public interface BookShopDao {
 	public int  findBookPriceByIsbn(String isbn);
