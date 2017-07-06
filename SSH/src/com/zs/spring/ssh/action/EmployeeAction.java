@@ -22,6 +22,16 @@ public class EmployeeAction extends ActionSupport implements RequestAware{
 		return "list";
 	}
 	
+	private Integer id;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	public String delete(){
+		employeeService.delete(id);
+		return SUCCESS;
+	}
+	
 	private Map<String, Object> map;
 
 	@Override
