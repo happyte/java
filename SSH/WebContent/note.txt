@@ -1,0 +1,14 @@
+1.加入Spring
+
+1).加入所有jar包吧
+2).配置web.xml文件
+3).配置Spring文件
+
+2.加入Hibernate
+1).建立持久化类，和对应的.hbm.xml文件，生成数据表
+2).Spring整合Hibernate
+
+1⃣️加入jar包
+2⃣️类路径下加入hibernate.cfg.xml文件，配置hibernate的基本属性
+3⃣️建立持久化类，和对应的.hbm.xml 
+4⃣️与Spring整合，1.加入c3p0和mysql驱动，2.在Spring中配置数据源，sessionFactory,事务
