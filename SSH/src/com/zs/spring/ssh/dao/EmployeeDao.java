@@ -7,16 +7,7 @@ import org.hibernate.SessionFactory;
 
 import com.zs.spring.ssh.entities.Employee;
 
-public class EmployeeDao {
-	private SessionFactory sessionFactory;
-	
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-	
-	private Session getSession(){
-		return sessionFactory.getCurrentSession();
-	}
+public class EmployeeDao extends BaseDao {
 	//显示所有用户
 	public List<Employee> getAll(){
 		String hql = "FROM Employee e LEFT OUTER JOIN FETCH e.department";

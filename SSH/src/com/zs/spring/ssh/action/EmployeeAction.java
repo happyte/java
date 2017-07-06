@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.struts2.interceptor.RequestAware;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.zs.spring.ssh.service.DepartmentService;
 import com.zs.spring.ssh.service.EmployeeService;
 
 public class EmployeeAction extends ActionSupport implements RequestAware{
@@ -16,8 +17,14 @@ public class EmployeeAction extends ActionSupport implements RequestAware{
 	
 	private EmployeeService employeeService;
 	
+	private DepartmentService departmentService;
+	
 	public void setEmployeeService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
+	}
+	
+	public void setDepartmentService(DepartmentService departmentService) {
+		this.departmentService = departmentService;
 	}
 	
 	public String list(){
@@ -49,6 +56,11 @@ public class EmployeeAction extends ActionSupport implements RequestAware{
 			}
 		}
 		return "delete";
+	}
+	
+	public String input(){
+		map.put("departments", departmentService.getAll());
+		return INPUT;
 	}
 	
 	private Map<String, Object> map;

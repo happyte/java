@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="emp-list.action">Show All Employees</a>
+	<a href="emp-list.action">Show All Employees</a><br>
+	<a href="emp-input.action">Add Employee</a>
 </body>
 </html>
