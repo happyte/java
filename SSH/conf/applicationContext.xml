@@ -32,23 +32,23 @@
 	</bean> 
 	
 	<!-- 配置声明式事务 -->
-<!-- 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+ 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
-	</bean> -->
+	</bean> 
 	
 	<!-- 配置事务属性 -->
-<!-- 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+ 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
 			<tx:method name="get*" read-only="true"/>
 			<tx:method name="*"/>
 		</tx:attributes>
-	</tx:advice> -->
+	</tx:advice> 
 	
 	<!-- 配置事务切入点 -->
-<!-- 	<aop:config>
-		任意返回类型，service下的所有类，所有方法，任意参数
+ 	<aop:config>
+		<!-- 任意返回类型，service下的所有类，所有方法，任意参数 -->
 		<aop:pointcut expression="execution(* com.zs.spring.ssh.service.*.*(..))" id="txPointcut"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
-	</aop:config> -->
+	</aop:config> 
 
 </beans>

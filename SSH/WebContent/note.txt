@@ -12,3 +12,9 @@
 2⃣️类路径下加入hibernate.cfg.xml文件，配置hibernate的基本属性
 3⃣️建立持久化类，和对应的.hbm.xml 
 4⃣️与Spring整合，1.加入c3p0和mysql驱动，2.在Spring中配置数据源，sessionFactory,事务
+
+3.加入Struts2
+1) 加入jar包
+2) 在web.xml中配置Struts2的Filter
+3) 加入struts.xml
+4) 整合Spring

@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h4>Hello</h4>
+	<a href="emp-list.action">Show All Employees</a>
 </body>
 </html>
