@@ -18,4 +18,8 @@ public class EmployeeService {
 	public void delete(Integer id){
 		employeeDao.delete(id);
 	}
+	
+	public void saveOrUpdate(Employee employee){
+		employeeDao.saveOrUpdate(employee);
+	}
 }

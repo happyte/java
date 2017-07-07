@@ -3,15 +3,19 @@ package com.zs.spring.ssh.action;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.RequestAware;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
+import com.zs.spring.ssh.entities.Employee;
 import com.zs.spring.ssh.service.DepartmentService;
 import com.zs.spring.ssh.service.EmployeeService;
 
-public class EmployeeAction extends ActionSupport implements RequestAware{
+public class EmployeeAction extends ActionSupport implements RequestAware,ModelDriven<Employee>,Preparable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -68,6 +72,28 @@ public class EmployeeAction extends ActionSupport implements RequestAware{
 	@Override
 	public void setRequest(Map<String, Object> arg0) {
 		map = arg0;
+	}
+	
+	public String save(){
+		model.setCreateTime(new Date());
+		employeeService.saveOrUpdate(model);
+		return SUCCESS;
+	}
+	
+	public void prepareSave(){
+		model = new Employee();
+	}
+
+	@Override
+	public void prepare() throws Exception {
+	}
+	
+	private Employee model;
+
+	@Override
+	public Employee getModel() {
+		System.out.println(model);
+		return model;
 	}
 
 }

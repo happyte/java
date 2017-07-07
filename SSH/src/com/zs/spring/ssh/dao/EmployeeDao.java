@@ -18,4 +18,9 @@ public class EmployeeDao extends BaseDao {
 		String hql = "DELETE FROM Employee e WHERE e.id = ?";
 		getSession().createQuery(hql).setInteger(0, id).executeUpdate();
 	}
+	
+	//添加一个用户
+	public void saveOrUpdate(Employee employee){
+		getSession().saveOrUpdate(employee);
+	}
 }

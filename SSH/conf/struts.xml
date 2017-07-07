@@ -9,6 +9,18 @@
     <constant name="struts.devMode" value="true" />
 
     <package name="default" namespace="/" extends="struts-default">
+		<!-- 不调用prepare方法,自定义拦截器栈，设置prepare的属性 -->   
+		<interceptors>
+			<interceptor-stack name="sshStack">
+				<interceptor-ref name="paramsPrepareParamsStack">
+					<param name="prepare.alwaysInvokePrepare">false</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors> 
+		
+		<!-- 使用自定义的拦截器栈 -->
+		<default-interceptor-ref name="sshStack"></default-interceptor-ref>
+    
 		<action name="emp-*" class="employeeAction" method="{1}">
 			<result name="list">/WEB-INF/views/emp-list.jsp</result>
 			<result type="stream" name="delete">
@@ -16,6 +28,7 @@
 		        <param name="inputName">inputStream</param>
 		    </result>	
 		    <result name="input">/WEB-INF/views/emp-input.jsp</result>
+		    <result name="success" type="redirect">/emp-list</result>
 		</action>
 		
     </package>

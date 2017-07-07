@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zs.spring.ssh.dao.DepartmentDao;
 import com.zs.spring.ssh.entities.Department;
+import com.zs.spring.ssh.entities.Employee;
 
 public class DepartmentService {
 	private DepartmentDao departmentDao;
@@ -14,4 +15,5 @@ public class DepartmentService {
 	public List<Department> getAll(){
 		return departmentDao.getAll();
 	}
+	
 }
