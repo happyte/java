@@ -23,4 +23,10 @@ public class EmployeeDao extends BaseDao {
 	public void saveOrUpdate(Employee employee){
 		getSession().saveOrUpdate(employee);
 	}
+	
+	//验证用户是否存在
+	public Employee getEmployeeByLastName(String lastName){
+		String hql = "FROM Employee e WHERE e.lastName = ?";
+		return (Employee) getSession().createQuery(hql).setString(0, lastName).uniqueResult();
+	}
 }

@@ -22,4 +22,8 @@ public class EmployeeService {
 	public void saveOrUpdate(Employee employee){
 		employeeDao.saveOrUpdate(employee);
 	}
+	
+	public boolean validateByLastName(String lastName){
+		return employeeDao.getEmployeeByLastName(lastName) == null;
+	}
 }

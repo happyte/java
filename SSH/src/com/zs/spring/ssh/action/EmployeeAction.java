@@ -59,7 +59,7 @@ public class EmployeeAction extends ActionSupport implements RequestAware,ModelD
 				e1.printStackTrace();
 			}
 		}
-		return "delete";
+		return "ajax-success";
 	}
 	
 	public String input(){
@@ -72,6 +72,25 @@ public class EmployeeAction extends ActionSupport implements RequestAware,ModelD
 	@Override
 	public void setRequest(Map<String, Object> arg0) {
 		map = arg0;
+	}
+	//lastName作为参数传进来
+	private String lastName;
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	//校验LastName
+	public String validateLastName() throws UnsupportedEncodingException{
+		System.out.println("lastName:"+lastName);
+		//这个名字当前没有被使用
+		if(employeeService.validateByLastName(lastName)){
+			inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+		}
+		else{
+			inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+		}
+		return "ajax-success";
 	}
 	
 	public String save(){
