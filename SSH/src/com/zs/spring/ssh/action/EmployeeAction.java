@@ -67,6 +67,13 @@ public class EmployeeAction extends ActionSupport implements RequestAware,ModelD
 		return INPUT;
 	}
 	
+	//修改的url传递了id参数
+	public void prepareInput(){
+		if(id != null){
+			model = employeeService.getById(id);
+		}
+	}
+	
 	private Map<String, Object> map;
 
 	@Override
@@ -94,13 +101,21 @@ public class EmployeeAction extends ActionSupport implements RequestAware,ModelD
 	}
 	
 	public String save(){
-		model.setCreateTime(new Date());
+		if(id == null){
+			model.setCreateTime(new Date());
+		}
 		employeeService.saveOrUpdate(model);
 		return SUCCESS;
 	}
 	
+	//修改的从隐藏域传递了一个id过来
 	public void prepareSave(){
-		model = new Employee();
+		if(id != null){
+			model = employeeService.getById(id);
+		}
+		else{
+			model = new Employee();
+		}
 	}
 
 	@Override

@@ -44,10 +44,15 @@
 <body>
 	<s:form action="emp-save" method="post">
 		<!-- 需要进行Ajax操作，因为有些名字是不能用的, 在网页源代码上显示的是input标签 -->
-		<s:textfield name="lastName" label="名字"></s:textfield>
+		<s:if test="id != null">
+			<s:textfield name="lastName" label="名字" disabled="true"></s:textfield>
+			<s:hidden name="id"></s:hidden>
+		</s:if>
+		<s:else>
+			<s:textfield name="lastName" label="名字"></s:textfield>
+		</s:else>
 		<s:textfield name="email" label="邮箱"></s:textfield>
 		<s:textfield name="birth" label="生日"></s:textfield>
-<%-- 		<s:textfield name="createTime" label="创建时间"></s:textfield> --%>
 		<s:select list="#request.departments" listKey="id" 
 				listValue="departmentName" name="department.id" label="部门">
 		</s:select>

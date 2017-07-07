@@ -29,4 +29,10 @@ public class EmployeeDao extends BaseDao {
 		String hql = "FROM Employee e WHERE e.lastName = ?";
 		return (Employee) getSession().createQuery(hql).setString(0, lastName).uniqueResult();
 	}
+	
+	//根据id查找一个用户
+	public Employee getEmployeeById(Integer id){
+		System.out.println(getSession().get(Employee.class, id));
+		return (Employee) getSession().get(Employee.class, id);
+	}
 }
