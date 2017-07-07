@@ -32,7 +32,7 @@ public class EmployeeDao extends BaseDao {
 	
 	//根据id查找一个用户
 	public Employee getEmployeeById(Integer id){
-		System.out.println(getSession().get(Employee.class, id));
+		//System.out.println(getSession().get(Employee.class, id));
 		return (Employee) getSession().get(Employee.class, id);
 	}
 }

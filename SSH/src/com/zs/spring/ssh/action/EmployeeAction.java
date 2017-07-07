@@ -69,8 +69,12 @@ public class EmployeeAction extends ActionSupport implements RequestAware,ModelD
 	
 	//修改的url传递了id参数
 	public void prepareInput(){
+		System.out.println("id:"+id);
 		if(id != null){
 			model = employeeService.getById(id);
+		}
+		else{
+			model = new Employee();
 		}
 	}
 	
