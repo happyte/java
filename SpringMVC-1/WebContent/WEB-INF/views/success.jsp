@@ -8,5 +8,17 @@
 </head>
 <body>
 	<h4>SUCCESS!</h4>
+	<br>
+	date:${requestScope.time }
+	<br>
+	map:${requestScope.names }
+	<br>
+	user:${requestScope.user }
+	<br>
+	school:${requestScope.school }
+	<br>
+	user:${sessionScope.user }
+	<br>
+	school:${sessionScope.school }
 </body>
 </html>

@@ -52,5 +52,31 @@
 		<input type="submit" value="TestRest DELETE"/>
 	</form>
 	<br>
+	
+	<a href="springmvc/testRequestParam?username=happyte&age=10">Test testRequestParam</a>
+	<br>
+	
+	<a href="springmvc/testRequestHeader">Test testRequestHeader</a>
+	<br>
+	
+	<form action="springmvc/testPojo" method="post">
+		Username:<input type="text" name="username"><br>
+		Password:<input type="password" name="password"><br>
+		Email:<input type="text" name="email"><br>
+		Age:<input type="text" name="age"><br>
+		Province:<input type="text" name="address.province"><br>
+		City:<input type="text" name="address.city"><br>
+		<input type="submit" value="Submit POJO">
+	</form>
+	<br>
+	
+	<a href="springmvc/testModelANDView">Test testModelANDView</a>
+	<br>
+	
+	<a href="springmvc/testMap">Test testMap</a>
+	<br>
+	
+	<a href="springmvc/testSessionAttribute">Test testSessionAttribute</a>
+	<br>
 </body>
 </html>
