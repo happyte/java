@@ -78,5 +78,15 @@
 	
 	<a href="springmvc/testSessionAttribute">Test testSessionAttribute</a>
 	<br>
+	<!-- 
+		模拟修改的过程，密码为123456,此时的user是new出来的，不是从数据库中获取的
+	 -->
+	<form action="springmvc/testModelAttribute" method="post">
+		<input type="hidden" name="id" value="1">
+		username:<input type="text" name="username" value="happyte"><br>
+		email:<input type="text" name="email" value="zs511129@163.com"><br>
+		age:<input type="text" name="age" value="24"><br>
+		<input type="submit" value="Submit">
+	</form>
 </body>
 </html>

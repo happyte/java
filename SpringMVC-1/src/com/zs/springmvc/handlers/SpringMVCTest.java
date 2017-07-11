@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zs.springmvc.entities.User;
 
-@SessionAttributes(value={"user"},types={String.class})
+//@SessionAttributes(value={"user"},types={String.class})
 @RequestMapping("/springmvc")
 @Controller
 public class SpringMVCTest {
@@ -147,6 +148,25 @@ public class SpringMVCTest {
 	public String testSessionAttribute(Map<String, Object> map){
 		map.put("user",new User("happyte", "123", "zs511129@163.com", 20));
 		map.put("school", "xiangzhong");
+		return SUCCESS;
+	}
+	
+	/**
+	 * 类似与struts2的prepareable拦截器
+	 */
+	@ModelAttribute
+	public void getUser(@RequestParam(value="id") Integer id, Map<String, Object> map){
+		System.out.println("id:"+id);
+		if(id != null){
+			User user = new User(1, "happyte", "123", "zs511129@163.com", 24);
+			System.out.println("从数据库中获取一个对象: " + user);
+			map.put("user", user);
+		}
+	}
+	
+	@RequestMapping("/testModelAttribute")
+	public String testModelAttribute(User user){
+		System.out.println("user:"+user);
 		return SUCCESS;
 	}
 }
