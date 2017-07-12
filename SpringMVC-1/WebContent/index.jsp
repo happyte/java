@@ -88,5 +88,8 @@
 		age:<input type="text" name="age" value="24"><br>
 		<input type="submit" value="Submit">
 	</form>
+	<br>
+	
+	<a href="springmvc/testView">test View</a>
 </body>
 </html>

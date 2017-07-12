@@ -164,9 +164,16 @@ public class SpringMVCTest {
 		}
 	}
 	
+	//在声明@ModelAttribute注解的方法中把对象保存到了map中
 	@RequestMapping("/testModelAttribute")
 	public String testModelAttribute(User user){
 		System.out.println("user:"+user);
 		return SUCCESS;
+	}
+	
+	@RequestMapping("/testView")
+	public String testView(){
+		System.out.println("testView");
+		return "helloView";
 	}
 }
