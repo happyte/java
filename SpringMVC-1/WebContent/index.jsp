@@ -90,6 +90,10 @@
 	</form>
 	<br>
 	
-	<a href="springmvc/testView">test View</a>
+ 	<a href="springmvc/testView">Test View</a>
+	<br> 
+	
+	<a href="springmvc/testRedirect">Test Redirect</a>
+	<br>
 </body>
 </html>

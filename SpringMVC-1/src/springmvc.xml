@@ -18,7 +18,7 @@
 	
 	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
 		<property name="order" value="100"></property>
-	</bean>
+	</bean> 
 	
 	<!-- 配置国际化资源文件 -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

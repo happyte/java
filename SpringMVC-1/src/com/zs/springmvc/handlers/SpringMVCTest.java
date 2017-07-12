@@ -171,9 +171,19 @@ public class SpringMVCTest {
 		return SUCCESS;
 	}
 	
+	//自定义View有问题
 	@RequestMapping("/testView")
 	public String testView(){
 		System.out.println("testView");
 		return "helloView";
 	}
+	
+	//重定向
+	@RequestMapping("/testRedirect")
+	public String testRedirect(){
+		System.out.println("c");
+		return "redirect:/success.jsp";
+	}
+	
+	
 }
