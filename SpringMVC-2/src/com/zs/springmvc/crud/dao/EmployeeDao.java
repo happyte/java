@@ -32,6 +32,8 @@ public class EmployeeDao {
 		if(employee.getId() == null){
 			employee.setId(initId++);
 		}
+		//添加后的Employee如下
+		//[id=null, lastName=happyte, email=123@126.com, gender=1, department=Department [id=101, departmentName=null]]
 		employee.setDepartment(departmentDao.getDepartment(employee.getDepartment().getId()));
 		map.put(employee.getId(), employee);
 	}

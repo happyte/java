@@ -35,5 +35,6 @@
 				</c:forEach>
 			</table>
 		</c:if>
+		<a href="emp">Add New Employee</a>
 </body>
 </html>
