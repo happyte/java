@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,9 +11,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form:form action="emp" method="post" modelAttribute="employee">
-	<!-- path 属性对应 html 表单标签的 name 属性值 -->	
-		LatName:<form:input path="lastName"></form:input>
+	<form:form action="${pageContext.request.contextPath }/emp" method="post" modelAttribute="employee">
+		<!-- path 属性对应 html 表单标签的 name 属性值 -->	
+		<!-- 表单回显 -->
+		<c:if test="${employee.id == null }">
+			LastName:<form:input path="lastName"></form:input>
+		</c:if>
+		<c:if test="${employee.id != null }">
+			<!-- 表单回显的时候employee对象是有id的，@ModelAttribute接受的是表单的id -->
+			<form:hidden path="id"/>
+			<input type="hidden" name="_method" value="PUT">
+		</c:if>
 		<br>
 		Email:<form:input path="email"></form:input>
 		<br>

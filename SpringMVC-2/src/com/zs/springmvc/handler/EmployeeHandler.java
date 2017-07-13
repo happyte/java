@@ -49,6 +49,10 @@ public class EmployeeHandler {
 	@ModelAttribute
 	public void getEmployee(@RequestParam(value="id", required=false) Integer id,Map<String, Object> map){
 			System.out.println("modelAttribute id:"+id);
+			if(id != null){
+				Employee employee = employeeDao.get(id);
+				map.put("employee", employee);
+			}
 	}
 	
 	//删除用户
@@ -56,6 +60,23 @@ public class EmployeeHandler {
 	public String delete(@PathVariable("id") Integer id){
 		System.out.println("delete id:"+id);
 		employeeDao.delete(id);
+		return "redirect:/emps";
+	}
+	
+	//表单回显
+	@RequestMapping(value="emp/{id}",method=RequestMethod.GET)
+	public String input(@PathVariable("id") Integer id,Map<String,Object> map){
+		Employee employee = employeeDao.get(id);
+		map.put("employee", employee);
+		map.put("departments", departmentDao.getValues());
+		return "input";
+	}
+	
+	//修改用户信息
+	@RequestMapping(value="emp",method=RequestMethod.PUT)
+	public String update(Employee employee){
+		System.out.println("update employee:"+employee);
+		employeeDao.save(employee);
 		return "redirect:/emps";
 	}
 }
