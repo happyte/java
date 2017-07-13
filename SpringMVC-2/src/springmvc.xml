@@ -15,4 +15,7 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
+	<!-- Spring MVC配置静态资源文件,这样jquery就可以使用了 -->
+	<mvc:default-servlet-handler/>
+	<mvc:annotation-driven></mvc:annotation-driven>
 </beans>
