@@ -4,6 +4,10 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,8 +43,14 @@ public class EmployeeHandler {
 	
 	//提交新添加用户，重定向到list页面
 	@RequestMapping(value="/emp",method=RequestMethod.POST)
-	public String save(Employee employee){
+	public String save(Employee employee,BindingResult bindingResult){
 		System.out.println("employee:"+employee);
+		if(bindingResult.getErrorCount() > 0){
+			System.out.println("出错了");
+			for(FieldError error:bindingResult.getFieldErrors()){
+				System.out.println(error.getField()+":"+error.getDefaultMessage());
+			}
+		}
 		employeeDao.save(employee);
 		return "redirect:/emps";
 	}
@@ -79,4 +89,10 @@ public class EmployeeHandler {
 		employeeDao.save(employee);
 		return "redirect:/emps";
 	}
+	
+	//提交的时候lastName没有赋值了
+//	@InitBinder
+//	public void initBinder(WebDataBinder dataBinder){
+//		dataBinder.setDisallowedFields("lastName");
+//	}
 }

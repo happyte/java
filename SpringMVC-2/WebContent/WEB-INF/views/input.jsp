@@ -32,6 +32,10 @@
 		<br>
 		Email:<form:input path="email"></form:input>
 		<br>
+		Salary:<form:input path="salary"></form:input>
+		<br>
+		Birth:<form:input path="birth"/>
+		<br>
  		<% 
 			Map<String, String> genders = new HashMap();
 			genders.put("1", "Male");
