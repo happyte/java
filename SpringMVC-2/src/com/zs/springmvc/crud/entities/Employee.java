@@ -2,15 +2,26 @@ package com.zs.springmvc.crud.entities;
 
 import java.util.Date;
 
+import javax.validation.constraints.Past;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
+
 public class Employee {
 	private Integer id;
+	//lastName非空
+	@NotEmpty
 	private String lastName;
+	//邮箱验证
+	@Email
 	private String email;
 	//1 male, 0 female
 	private Integer gender;
+	//不能超过现在时间
+	@Past
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date birth;
 	@NumberFormat(pattern="#,###,###.#")

@@ -2,6 +2,8 @@ package com.zs.springmvc.handler;
 
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -43,13 +45,15 @@ public class EmployeeHandler {
 	
 	//提交新添加用户，重定向到list页面
 	@RequestMapping(value="/emp",method=RequestMethod.POST)
-	public String save(Employee employee,BindingResult bindingResult){
+	public String save(@Valid Employee employee,BindingResult bindingResult,Map<String, Object> map){
 		System.out.println("employee:"+employee);
 		if(bindingResult.getErrorCount() > 0){
 			System.out.println("出错了");
 			for(FieldError error:bindingResult.getFieldErrors()){
 				System.out.println(error.getField()+":"+error.getDefaultMessage());
 			}
+			map.put("departments", departmentDao.getValues());
+			return "input";
 		}
 		employeeDao.save(employee);
 		return "redirect:/emps";
