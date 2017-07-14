@@ -17,5 +17,15 @@
 
 	<!-- Spring MVC配置静态资源文件,这样jquery就可以使用了 -->
 	<mvc:default-servlet-handler/>
-	<mvc:annotation-driven></mvc:annotation-driven>
+	
+	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+	
+	<!-- 配置ConversionService,employeeConvert配置为IOC容器 -->
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<ref bean="employeeConvert"/>
+			</set>
+		</property>
+	</bean>
 </beans>

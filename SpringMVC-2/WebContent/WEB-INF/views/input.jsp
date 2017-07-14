@@ -11,6 +11,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<form action="testConvert" method="post">
+		Employee:<input type="text" name="employee">
+		<br>
+		<input type="submit" value="Submit">
+	</form>
+
 	<form:form action="${pageContext.request.contextPath }/emp" method="post" modelAttribute="employee">
 		<!-- path 属性对应 html 表单标签的 name 属性值 -->	
 		<!-- 表单回显 -->
@@ -19,6 +25,7 @@
 		</c:if>
 		<c:if test="${employee.id != null }">
 			<!-- 表单回显的时候employee对象是有id的，@ModelAttribute接受的是表单的id -->
+			<!--form:hidden是隐藏域  -->
 			<form:hidden path="id"/>
 			<input type="hidden" name="_method" value="PUT">
 		</c:if>
@@ -29,7 +36,6 @@
 			Map<String, String> genders = new HashMap();
 			genders.put("1", "Male");
 			genders.put("0", "Female");
-			
 			request.setAttribute("genders", genders);
 		%>
 		Gender:

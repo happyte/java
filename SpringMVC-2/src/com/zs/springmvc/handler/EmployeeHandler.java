@@ -48,6 +48,7 @@ public class EmployeeHandler {
 	//这个拦截器并不会得出url中的id
 	@ModelAttribute
 	public void getEmployee(@RequestParam(value="id", required=false) Integer id,Map<String, Object> map){
+			//只有表单回显修改后提交接受的参数id才是有值的
 			System.out.println("modelAttribute id:"+id);
 			if(id != null){
 				Employee employee = employeeDao.get(id);
@@ -75,7 +76,6 @@ public class EmployeeHandler {
 	//修改用户信息
 	@RequestMapping(value="emp",method=RequestMethod.PUT)
 	public String update(Employee employee){
-		System.out.println("update employee:"+employee);
 		employeeDao.save(employee);
 		return "redirect:/emps";
 	}
