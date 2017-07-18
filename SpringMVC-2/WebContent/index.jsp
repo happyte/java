@@ -45,4 +45,6 @@
 	-->	
 	<br><br>
 	<a href="i18n">I18N PAGE</a>
+	<br><br>
+	<a href="testExceptionHandlerExceptionResolver?i=2">Test ExceptionHandler ExceptionResolver</a>
 </html>

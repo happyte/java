@@ -7,10 +7,12 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zs.springmvc.crud.dao.EmployeeDao;
 import com.zs.springmvc.crud.entities.Employee;
@@ -52,4 +54,20 @@ public class SpringMVCTest {
 		System.out.println("InputStream: " + file.getInputStream());
 		return "success";
 	}
+	
+	//无法处理异常
+	@RequestMapping("/testExceptionHandlerExceptionResolver")
+	public String testExceptionHandlerExceptionResolver(@RequestParam("i") Integer i){
+		System.out.println("result:"+10/i);
+		return "success";
+	}
+	
+	//精确匹配出的错误
+//	@ExceptionHandler({ArithmeticException.class})
+//	public ModelAndView hanleException(Exception ex){
+//		System.out.println("出异常了-->"+ex);
+//		ModelAndView mv = new ModelAndView("error");
+//		mv.addObject("exception", ex);
+//		return mv;
+//	}
 }

@@ -46,6 +46,8 @@
 	
 	<!-- 配置 LocaleChanceInterceptor -->
 	<mvc:interceptors>
+		<!-- 自定义拦截器 -->
+		<bean class="com.zs.springmvc.interceptors.FirstInterceptor"></bean>
 		<!-- 配置 LocaleChanceInterceptor -->
 		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
 	</mvc:interceptors>
