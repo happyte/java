@@ -18,10 +18,14 @@
 	</form>
 
 	<form:form action="${pageContext.request.contextPath }/emp" method="post" modelAttribute="employee">
+		<!-- 显示错误消息 -->
+<%-- 		<form:errors path="*"></form:errors>
+		<br> --%>
 		<!-- path 属性对应 html 表单标签的 name 属性值 -->	
 		<!-- 表单回显 -->
 		<c:if test="${employee.id == null }">
 			LastName:<form:input path="lastName"></form:input>
+			<form:errors path="lastName"></form:errors>
 		</c:if>
 		<c:if test="${employee.id != null }">
 			<!-- 表单回显的时候employee对象是有id的，@ModelAttribute接受的是表单的id -->
@@ -45,10 +49,13 @@
 			3). 错误消息 ? 如何显示, 如何把错误消息进行国际化
 		-->
 		Email:<form:input path="email"></form:input>
+		<form:errors path="email"></form:errors>
 		<br>
 		Salary:<form:input path="salary"></form:input>
+		<form:errors path="salary"></form:errors>
 		<br>
 		Birth:<form:input path="birth"/>
+		<form:errors path="birth"></form:errors>
 		<br>
  		<% 
 			Map<String, String> genders = new HashMap();
