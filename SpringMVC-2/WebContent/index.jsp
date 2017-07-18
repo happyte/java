@@ -24,6 +24,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<form action="testUpload" method="post" enctype="multipart/form-data">
+		File:<input type="file" name="file">
+		Desc:<input type="text" name="desc">
+		<input type="submit" value="Submit">
+	</form>
 	<a href="emps">List All Employees</a>
 	<br>
 	<a href="testJson" id="json">testJson</a>
