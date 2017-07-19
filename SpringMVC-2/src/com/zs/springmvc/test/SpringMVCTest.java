@@ -70,4 +70,12 @@ public class SpringMVCTest {
 //		mv.addObject("exception", ex);
 //		return mv;
 //	}
+	
+	@RequestMapping("/testResponseStatusExceptionResolver")
+	public String testUserNameNotMatchException(@RequestParam("i") int i){
+		if(i == 15){
+			throw new UserNameNotMatchException();
+		}
+		return "success";
+	}
 }
