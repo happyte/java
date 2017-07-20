@@ -42,16 +42,16 @@ public class HibernateTest {
 	@Test
 	public void testSave() {
 		Category category1 = new Category();
-		category1.setName("C-AA");
+		category1.setName("C-张树");
 		
 		Category category2 = new Category();
-		category2.setName("C-BB");
+		category2.setName("C-李楠");
 		
 		Item item1 = new Item();
-		item1.setName("I-AA");
+		item1.setName("I-部门A");
 		
 		Item item2 = new Item();
-		item2.setName("I-BB");
+		item2.setName("I-部门B");
 		
 		category1.getItems().add(item1);
 		category1.getItems().add(item2);
@@ -74,6 +74,9 @@ public class HibernateTest {
 		Category category = (Category) session.get(Category.class, 1);
 		
 		Set<Item> items = category.getItems();
+		for(Item item:items){
+			System.out.println(item.getId()+":"+item.getName());
+		}
 		System.out.println(items.size());
 	}
 	

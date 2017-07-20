@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h4>Hello</h4>
+	${pageContext.request.contextPath }
 </body>
 </html>
