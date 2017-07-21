@@ -14,7 +14,7 @@ public class MyBatisUtil {
 	 */
 	public static SqlSessionFactory getSqlSessionFactory(){
 		String resource = "conf.xml";
-		InputStream is = Test1.class.getClassLoader().getResourceAsStream(resource);
+		InputStream is = MyBatisUtil.class.getClassLoader().getResourceAsStream(resource);
 		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
 		return sessionFactory;
 	}

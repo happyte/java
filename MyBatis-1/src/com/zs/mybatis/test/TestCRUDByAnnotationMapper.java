@@ -40,7 +40,7 @@ public class TestCRUDByAnnotationMapper {
 	public void testDelete(){
 		SqlSession sqlSession = MyBatisUtil.getSqlSession(true);
 		StudentMapperI mapper = sqlSession.getMapper(StudentMapperI.class);
-		int res = mapper.deleteById(3);
+		int res = mapper.deleteById(2);
 		sqlSession.close();
 		System.out.println("res:"+res);
 	}
