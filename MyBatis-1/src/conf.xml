@@ -25,5 +25,6 @@
         <!-- 注册StudentMapper映射接口 -->
         <mapper class="com.zs.mybatis.res.StudentMapperI"/>
         <mapper resource="com/zs/mybatis/res/orderMapper.xml" /> 
+         <mapper resource="com/zs/mybatis/res/classMapper.xml" /> 
      </mappers>
 </configuration>
