@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zs.mybatis.res.studentMapper">
+	<!-- 根据id查询一个用户,有返回值 -->
+	<select id="getStudent" parameterType="int" resultType="com.zs.mybatis.entities.Student">
+		select * from student where id = #{id}
+	</select>
+	
+	<!-- 创建用户,无返回值 -->
+	<insert id="addStudent" parameterType="com.zs.mybatis.entities.Student">
+		insert into student(name,birthday) values (#{name},#{birthday})
+	</insert>
+	
+	<!-- 删除用户,无返回值 -->
+	<delete id="deleteStudent" parameterType="int">
+		delete from student where id = #{id}
+	</delete>
+	
+	<!-- 修改用户,无返回值 -->
+	<update id="updateStudent" parameterType="com.zs.mybatis.entities.Student">
+		update student set name = #{name},birthday= #{birthday} where id = #{id}
+	</update>
+	
+	<!-- 查询所有用户,无参数，有返回值 -->
+	<select id="getAllStudent" resultType="com.zs.mybatis.entities.Student">
+		select * from student
+	</select>
+</mapper>
