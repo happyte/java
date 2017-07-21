@@ -17,5 +17,7 @@
     <!-- mapping 文件路径配置 -->  
     <mappers>  
         <mapper resource="com/zs/mybatis/res/studentMapper.xml" /> 
+        <!-- 注册StudentMapper映射接口 -->
+        <mapper class="com.zs.mybatis.res.StudentMapperI"/>
     </mappers>  
 </configuration>
