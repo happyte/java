@@ -1,11 +1,10 @@
-package com.zs.mybatis.res;
+package com.zs.mybatis.test;
 
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
 
 import com.zs.mybatis.entities.Class;
-import com.zs.mybatis.test.MyBatisUtil;
 
 public class Test3 {
 

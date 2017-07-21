@@ -29,4 +29,43 @@
 	<select id="getTeacher" parameterType="int" resultType="Teacher">
 		select t_id id, t_name name from teacher where t_id=#{id}
 	</select>
+	
+	<!--方法三 添加一对多关系 -->
+	<select id="getClass3" parameterType="int" resultMap="classResultMap3">
+		select * from class c,teacher t,children s where c.teacher_id = t.t_id and s.class_id = c.c_id and c.c_id = #{id}
+	</select>
+	
+	<resultMap type="Class" id="classResultMap3">
+		<id property="id" column="c_id"/>
+		<result property="name" column="c_name"/>
+		<association property="teacher" javaType="Teacher" column="teacher_id">
+			<id property="id" column="t_id"/>
+			<result property="name" column="t_name"/>
+		</association>
+		<collection property="childrens" ofType="Children" column="c_id">
+			<id property="id" column="s_id"/>
+			<result property="name" column="s_name"/>
+		</collection>
+	</resultMap>
+	
+	<!--方法四 添加一对多关系 -->
+	<select id="getClass4" parameterType="int" resultMap="classResultMap4">
+		select * from class where c_id = #{id}
+	</select>
+	
+	<resultMap type="Class" id="classResultMap4">
+		<id property="id" column="c_id"/>
+		<result property="name" column="c_name"/>
+		<association property="teacher" column="teacher_id" select="getTeacher2"></association>
+		<collection property="childrens" column="c_id" select="getStudent"></collection>
+	</resultMap>
+	
+	<select id="getTeacher2" parameterType="int" resultType="Teacher">
+		select t_id id,t_name name from teacher where t_id = #{id}
+	</select>
+	
+	<select id="getStudent" parameterType="int" resultType="Children">
+		select s_id id,s_name name from children where class_id = #{id}
+	</select>
+	
 </mapper>

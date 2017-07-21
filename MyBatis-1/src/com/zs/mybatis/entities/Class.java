@@ -1,9 +1,12 @@
 package com.zs.mybatis.entities;
 
+import java.util.List;
+
 public class Class {
 	private int id;
 	private String name;
 	private Teacher teacher;
+	List<Children> childrens;
 	public int getId() {
 		return id;
 	}
@@ -22,9 +25,16 @@ public class Class {
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
 	}
+	
+	public List<Children> getChildrens() {
+		return childrens;
+	}
+	public void setChildrens(List<Children> childrens) {
+		this.childrens = childrens;
+	}
 	@Override
 	public String toString() {
-		return "Class [id=" + id + ", name=" + name + ", teacher=" + teacher + "]";
+		return "Class [id=" + id + ", name=" + name + ", teacher=" + teacher + ", childrens=" + childrens + "]";
 	}
 	
 }
