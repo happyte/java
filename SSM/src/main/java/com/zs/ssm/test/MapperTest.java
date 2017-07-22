@@ -36,11 +36,11 @@ public class MapperTest {
 //		departmentMapper.insertSelective(new Department(null, "测试部"));
 		//插入员工成功
 		//employeeMapper.insertSelective(new Employee(null, "张树", "F", "zs511129@163.com", 2));
-		EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
-		for(int i=0;i<10;i++){
-			String uid = UUID.randomUUID().toString().substring(0, 5)+i;
-			employeeMapper.insertSelective(new Employee(null, uid, "M", uid+"@163.com", 3));
-		}
+//		EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
+//		for(int i=0;i<10;i++){
+//			String uid = UUID.randomUUID().toString().substring(0, 5)+i;
+//			employeeMapper.insertSelective(new Employee(null, uid, "M", uid+"@163.com", 3));
+//		}
 		
 	}
 
