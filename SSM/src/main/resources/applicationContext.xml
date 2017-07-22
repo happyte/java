@@ -36,6 +36,12 @@
 		<property name="basePackage" value="com.zs.ssm.dao"></property>
 	</bean> 
 	
+	<!-- 批量操作一个可以批量操作sqlSession -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+		<constructor-arg name="executorType" value="BATCH"></constructor-arg>
+	</bean>
+	
 	<!-- 配置事务,事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="pooledDataSource"></property>
