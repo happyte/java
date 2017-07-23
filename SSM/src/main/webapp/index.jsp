@@ -13,6 +13,55 @@
 <script src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<!-- 添加员工模态框 -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">员工添加</h4>
+	      </div>
+	      <div class="modal-body">
+	       	<form class="form-horizontal">
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">姓名</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" name="empName" placeholder="姓名">
+				    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">邮箱</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" name="email" placeholder="邮箱">
+				    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">性别</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox1" value="M" checked="checked"> 男
+				</label>
+				<label class="checkbox-inline">
+					<input type="checkbox" id="inlineCheckbox1" value="F"> 女
+				</label>
+			  </div>
+			  <div class="form-group">
+			  	<label class="col-sm-2 control-label">部门名称</label>
+			  		<div class="col-sm-4">
+					    <select class="form-control">
+						 
+						</select>
+					</div>
+			  </div>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	        <button type="button" class="btn btn-primary">保存</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
 	<!-- 搭建页面 -->
 	<div class="container">
 		<!-- 标题 -->
@@ -24,7 +73,7 @@
 		<!-- 新增删除按钮 -->
 		<div class="row">
 			<div class="col-md-4 col-md-offset-8">
-				<button class="btn btn-primary btn-sm"> 
+				<button class="btn btn-primary btn-sm" id="emp_add_modal_button"> 
 				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>新增
 				</button>
 				<button class="btn btn btn-danger btn-sm"> 
@@ -96,7 +145,7 @@
 				var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm")
 				              .append($("<span></span>").addClass("glyphicon glyphicon-trash"))   
 				              .append("删除");
-				var btnTd  = $("<button></button>").append(editBtn).append(" ").append(delBtn);
+				var btnTd  = $("<td></td>").append(editBtn).append(" ").append(delBtn);
 				$("<tr></tr>").append(empIdTd)
 							  .append(empNameTd)
 							  .append(emailTd)
@@ -164,6 +213,12 @@
 			var nav = $("<nav></nav>").append(ul);
 			nav.appendTo("#page_nav_area");
 		}
+		
+		$("#emp_add_modal_button").click(function(){
+			$('#myModal').modal({
+				backdrop:"static"
+			});
+		});
 	</script>
 </body>
 </html>
