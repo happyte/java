@@ -38,16 +38,16 @@
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">性别</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" id="inlineCheckbox1" value="M" checked="checked"> 男
+					<input type="radio" name="gender" id="inlineCheckbox1" value="M" checked="checked"> 男
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" id="inlineCheckbox1" value="F"> 女
+					<input type="radio" name="gender" id="inlineCheckbox1" value="F"> 女
 				</label>
 			  </div>
 			  <div class="form-group">
 			  	<label class="col-sm-2 control-label">部门名称</label>
 			  		<div class="col-sm-4">
-					    <select class="form-control">
+					    <select class="form-control" name="dId">
 						 
 						</select>
 					</div>
@@ -56,7 +56,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-	        <button type="button" class="btn btn-primary">保存</button>
+	        <button type="button" class="btn btn-primary" id="add_emp_btn">保存</button>
 	      </div>
 	    </div>
 	  </div>
@@ -222,13 +222,29 @@
 				success:function(result){
 					console.log(result);
 					$.each(result.extendMap.depts,function(){
-						var option = $("<option></option>").append(this.deptName);
+						var option = $("<option></option>").append(this.deptName).attr("value",this.deptId);
 						$("#empAddModal select").append(option);
 					}); 
 				}
 			});
+			//显示表单
 			$('#empAddModal').modal({
 				backdrop:"static"
+			});
+		});
+		
+		$("#add_emp_btn").click(function() {
+			$.ajax({
+				url:"${APP_PATH}/emp",
+				type:"POST",
+				data:$("#empAddModal form").serialize(),
+				success:function(result){
+					//alert($("#empAddModal form").serialize());
+					//关闭模态框
+					$('#empAddModal').modal('hide');
+					//跳转到最后一页
+					to_page(1000);
+				}
 			});
 		});
 	</script>

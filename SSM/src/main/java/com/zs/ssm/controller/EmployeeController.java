@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,6 +22,15 @@ public class EmployeeController {
 	
 	@Autowired
 	EmploeeService emplyoeeService;
+	
+	//只处理REST的POST请求
+	@ResponseBody
+	@RequestMapping(value="/emp",method=RequestMethod.POST)
+	public Message emp_save(Employee employee){
+		emplyoeeService.save(employee);
+		return Message.success();
+	}
+	
 	
 	//返回Json数据，前端使用Ajax发送get请求并处理json数据
 	@ResponseBody
