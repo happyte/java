@@ -22,6 +22,7 @@ public class EmployeeController {
 	@Autowired
 	EmploeeService emplyoeeService;
 	
+	//返回Json数据，前端使用Ajax发送get请求并处理json数据
 	@ResponseBody
 	@RequestMapping("/emps")
 	public Message getEmpsWithJson(@RequestParam(value="pageNo",defaultValue="1") Integer pageNo){

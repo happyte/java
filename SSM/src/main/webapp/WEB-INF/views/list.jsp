@@ -55,7 +55,7 @@
 						<button class="btn btn-info btn-sm"> 
 							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>编辑
 						</button>
-						<button class="btn btn btn-danger btn-sm"> 
+						<button class="btn btn-danger btn-sm"> 
 							<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>删除
 						</button>
 					</th>
