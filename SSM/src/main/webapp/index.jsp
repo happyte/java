@@ -14,7 +14,7 @@
 </head>
 <body>
 	<!-- 添加员工模态框 -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal fade" id="empAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -215,7 +215,19 @@
 		}
 		
 		$("#emp_add_modal_button").click(function(){
-			$('#myModal').modal({
+			//先发送Ajax请求
+			$.ajax({
+				url:"${APP_PATH}/getDepts",
+				type:"GET",
+				success:function(result){
+					console.log(result);
+					$.each(result.extendMap.depts,function(){
+						var option = $("<option></option>").append(this.deptName);
+						$("#empAddModal select").append(option);
+					}); 
+				}
+			});
+			$('#empAddModal').modal({
 				backdrop:"static"
 			});
 		});
