@@ -130,6 +130,7 @@
 				}
 			});
 		}
+		
 		function build_emps_table(result) {
 			//清除之前的表格数据
 			$("#emps_table tbody").empty();
@@ -157,6 +158,7 @@
 							  .appendTo("#emps_table tbody");
 			});
 		}
+		
 		function build_page_info(result) {
 			//清除之前的数据
 			$("#page_info_area").empty();
@@ -165,6 +167,7 @@
 			var total = result.extendMap.pageInfo.total;
 			$("#page_info_area").append("当前第"+pageNum+"页，共有"+pages+"页，总计"+total+"条记录");
 		}
+		
 		function build_page_nav(result) {
 			//清除之前的数据
 			//标签需要一层一层包含
@@ -217,6 +220,8 @@
 		}
 		
 		$("#emp_add_modal_button").click(function(){
+			//清除之前表单的信息
+			reset("#empAddModal form");
 			//先发送Ajax请求
 			$.ajax({
 				url:"${APP_PATH}/getDepts",
@@ -234,9 +239,18 @@
 				backdrop:"static"
 			});
 		});
+		//清空表单及样式
+		function reset(ele) {
+			$(ele)[0].reset();
+			$(ele).find("*").removeClass("has-error has-success");
+			$(ele).find(".help-block").text("");
+		}
 		
 		$("#add_emp_btn").click(function() {
 			if(!validate_form()){
+				return false;
+			}
+			if($(this).attr("ajax-validate") == "error"){
 				return false;
 			}
 			$.ajax({
@@ -253,6 +267,7 @@
 			});
 		});
 		
+		//校验输入与正则表达式是否匹配
 		function validate_form() {
 			//1、拿到要校验的数据，使用正则表达式
 			var empName = $("#empName_add_input").val();
@@ -291,6 +306,27 @@
 				$(ele).next("span").text(msg);
 			}
 		}
+		
+		//绑定用户名的change事件,function是回调函数
+		$("#empName_add_input").change(function() {
+			var empName = this.value;
+			$.ajax({
+				url:"${APP_PATH}/checkuser",
+				data:"empName="+empName,
+				type:"POST",
+				contentType: "application/x-www-form-urlencoded",  //为了防止中文传到后台中文乱码
+				success:function(result){
+					if(result.code == 100){
+						show_validate_msg("#empName_add_input","success","用户名可用");
+						$("#add_emp_btn").attr("ajax-validate","success");
+					}
+					else {
+						show_validate_msg("#empName_add_input","error","用户名不可用");
+						$("#add_emp_btn").attr("ajax-validate","error");
+					}
+				}
+			});
+		});
 	</script>
 </body>
 </html>

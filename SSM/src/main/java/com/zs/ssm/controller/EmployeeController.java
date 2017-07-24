@@ -23,6 +23,21 @@ public class EmployeeController {
 	@Autowired
 	EmploeeService emplyoeeService;
 	
+	//处理ajax请求用户名是否重复
+	@ResponseBody
+	@RequestMapping(value="/checkuser")
+	public Message checkuser(@RequestParam(value="empName") String empName){
+		System.out.println("empName:"+empName);
+		boolean flag = emplyoeeService.check(empName);
+		System.out.println("flag:"+flag);
+		if(flag){
+			return Message.success();
+		}
+		else{
+			return Message.fail();
+		}
+	}
+	
 	//只处理REST的POST请求
 	@ResponseBody
 	@RequestMapping(value="/emp",method=RequestMethod.POST)
