@@ -27,14 +27,16 @@ public class EmployeeController {
 	@ResponseBody
 	@RequestMapping(value="/checkuser")
 	public Message checkuser(@RequestParam(value="empName") String empName){
-		System.out.println("empName:"+empName);
+		String regex = "(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})";
+		if(!empName.matches(regex)){
+			return Message.fail().add("rex_va", "用户名为2-5位中文或者6-16位英文和数字的组合");
+		}
 		boolean flag = emplyoeeService.check(empName);
-		System.out.println("flag:"+flag);
 		if(flag){
 			return Message.success();
 		}
 		else{
-			return Message.fail();
+			return Message.fail().add("rex_va", "用户名不可用");
 		}
 	}
 	

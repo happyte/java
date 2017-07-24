@@ -248,9 +248,11 @@
 		
 		$("#add_emp_btn").click(function() {
 			if(!validate_form()){
+				empNameValidate($("#empName_add_input").val());
 				return false;
 			}
 			if($(this).attr("ajax-validate") == "error"){
+				empNameValidate($("#empName_add_input").val());
 				return false;
 			}
 			$.ajax({
@@ -258,7 +260,6 @@
 				type:"POST",
 				data:$("#empAddModal form").serialize(),
 				success:function(result){
-					//alert($("#empAddModal form").serialize());
 					//关闭模态框
 					$('#empAddModal').modal('hide');
 					//跳转到最后一页
@@ -309,7 +310,11 @@
 		
 		//绑定用户名的change事件,function是回调函数
 		$("#empName_add_input").change(function() {
-			var empName = this.value;
+			empNameValidate($(this).val());
+		});
+		
+		function empNameValidate(ele) {
+			var empName = ele;
 			$.ajax({
 				url:"${APP_PATH}/checkuser",
 				data:"empName="+empName,
@@ -321,12 +326,12 @@
 						$("#add_emp_btn").attr("ajax-validate","success");
 					}
 					else {
-						show_validate_msg("#empName_add_input","error","用户名不可用");
+						show_validate_msg("#empName_add_input","error",result.extendMap.rex_va);
 						$("#add_emp_btn").attr("ajax-validate","error");
 					}
 				}
 			});
-		});
+		}
 	</script>
 </body>
 </html>
