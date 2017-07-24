@@ -26,13 +26,15 @@
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">姓名</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" name="empName" placeholder="姓名">
+				      <input type="text" class="form-control" id="empName_add_input" name="empName" placeholder="姓名">
+				      <span class="help-block"></span>
 				    </div>
 			  </div>
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">邮箱</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" name="email" placeholder="邮箱">
+				      <input type="text" class="form-control" id="email_add_input" name="email" placeholder="邮箱">
+				      <span class="help-block"></span>
 				    </div>
 			  </div>
 			  <div class="form-group">
@@ -234,6 +236,9 @@
 		});
 		
 		$("#add_emp_btn").click(function() {
+			if(!validate_form()){
+				return false;
+			}
 			$.ajax({
 				url:"${APP_PATH}/emp",
 				type:"POST",
@@ -247,6 +252,45 @@
 				}
 			});
 		});
+		
+		function validate_form() {
+			//1、拿到要校验的数据，使用正则表达式
+			var empName = $("#empName_add_input").val();
+			var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})/;
+			if(!regName.test(empName)){
+				//alert("用户名可以是2-5位中文或者6-16位英文和数字的组合");
+				show_validate_msg("#empName_add_input", "error", "用户名可以是2-5位中文或者6-16位英文和数字的组合");
+				return false;
+			}else{
+				show_validate_msg("#empName_add_input", "success", "");
+			}
+			
+			//2、校验邮箱信息
+			var email = $("#email_add_input").val();
+			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			if(!regEmail.test(email)){
+				show_validate_msg("#email_add_input", "error", "邮箱格式不正确");
+				return false;
+			}
+			else {
+				show_validate_msg("#email_add_input", "success", "");
+			}
+			return true;
+		}
+		
+		//显示校验结果的提示信息
+		function show_validate_msg(ele,status,msg){
+			//清除当前元素的校验状态
+			$(ele).parent().removeClass("has-success has-error");
+			$(ele).next("span").text("");
+			if("success"==status){
+				$(ele).parent().addClass("has-success");
+				$(ele).next("span").text(msg);
+			}else if("error" == status){
+				$(ele).parent().addClass("has-error");
+				$(ele).next("span").text(msg);
+			}
+		}
 	</script>
 </body>
 </html>
