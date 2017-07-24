@@ -254,16 +254,26 @@
 			if($(this).attr("ajax-validate") == "error"){
 				empNameValidate($("#empName_add_input").val());
 				return false;
-			}
+			} 
 			$.ajax({
 				url:"${APP_PATH}/emp",
 				type:"POST",
 				data:$("#empAddModal form").serialize(),
 				success:function(result){
-					//关闭模态框
-					$('#empAddModal').modal('hide');
-					//跳转到最后一页
-					to_page(1000);
+					if(result.code == 100){
+						//关闭模态框
+						$('#empAddModal').modal('hide');
+						//跳转到最后一页
+						to_page(1000);
+					}
+					else {
+						if(undefined != result.extendMap.errorMap.email){
+							show_validate_msg("#email_add_input", "error", result.extendMap.errorMap.email);
+						}
+						if(undefined != result.extendMap.errorMap.empName){
+							show_validate_msg("#empName_add_input", "error", result.extendMap.errorMap.empName);
+						}
+					}
 				}
 			});
 		});

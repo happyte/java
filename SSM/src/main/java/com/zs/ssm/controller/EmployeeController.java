@@ -1,11 +1,16 @@
 package com.zs.ssm.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,9 +48,21 @@ public class EmployeeController {
 	//只处理REST的POST请求
 	@ResponseBody
 	@RequestMapping(value="/emp",method=RequestMethod.POST)
-	public Message emp_save(Employee employee){
-		emplyoeeService.save(employee);
-		return Message.success();
+	public Message emp_save(@Valid Employee employee,BindingResult result){
+		Map<String, Object> map = new HashMap<>();
+		if(result.hasErrors()){
+			List<FieldError> errors = result.getFieldErrors();
+			for(FieldError error:errors){
+				System.out.println("错误的字段:"+error.getField());
+				System.out.println("错误的信息:"+error.getDefaultMessage());
+				map.put(error.getField(), error.getDefaultMessage());
+			}
+			return Message.fail().add("errorMap", map);
+		}
+		else{
+			emplyoeeService.save(employee);
+			return Message.success();
+		}
 	}
 	
 	
