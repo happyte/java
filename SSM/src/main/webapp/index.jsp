@@ -13,6 +13,57 @@
 <script src="${APP_PATH}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<!-- 更新员工模态框 -->
+	<div class="modal fade" id="empUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">员工更新</h4>
+	      </div>
+	      <div class="modal-body">
+	       	<form class="form-horizontal">
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">姓名</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="empName_update_input" name="empName" placeholder="姓名">
+				      <span class="help-block"></span>
+				    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">邮箱</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" id="email_update_input" name="email" placeholder="邮箱">
+				      <span class="help-block"></span>
+				    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">性别</label>
+				<label class="checkbox-inline">
+					<input type="radio" name="gender" id="inlineCheckbox1" value="M" checked="checked"> 男
+				</label>
+				<label class="checkbox-inline">
+					<input type="radio" name="gender" id="inlineCheckbox1" value="F"> 女
+				</label>
+			  </div>
+			  <div class="form-group">
+			  	<label class="col-sm-2 control-label">部门名称</label>
+			  		<div class="col-sm-4">
+					    <select class="form-control" name="dId">
+						 
+						</select>
+					</div>
+			  </div>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+	        <button type="button" class="btn btn-primary" id="update_emp_btn">保存</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
 	<!-- 添加员工模态框 -->
 	<div class="modal fade" id="empAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
@@ -142,10 +193,10 @@
 				var emailTd = $("<td></td>").append(item.email);
 				var genderTd = $("<td></td>").append(item.gender == 'M'? "男":"女");
 				var deptNameTd = $("<td></td>").append(item.department.deptName);
-				var editBtn = $("<button></button>").addClass("btn btn-info btn-sm")
+				var editBtn = $("<button></button>").addClass("btn btn-info btn-sm update_btn")
 							  .append($("<span></span>").addClass("glyphicon glyphicon-pencil"))
 							  .append("编辑");
-				var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm")
+				var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
 				              .append($("<span></span>").addClass("glyphicon glyphicon-trash"))   
 				              .append("删除");
 				var btnTd  = $("<td></td>").append(editBtn).append(" ").append(delBtn);
@@ -219,21 +270,27 @@
 			nav.appendTo("#page_nav_area");
 		}
 		
-		$("#emp_add_modal_button").click(function(){
-			//清除之前表单的信息
-			reset("#empAddModal form");
-			//先发送Ajax请求
+		//ajax请求显示部门信息
+		function getDept(ele) {
+			$(ele).empty();
 			$.ajax({
 				url:"${APP_PATH}/getDepts",
 				type:"GET",
 				success:function(result){
-					console.log(result);
+					//console.log(result);
 					$.each(result.extendMap.depts,function(){
 						var option = $("<option></option>").append(this.deptName).attr("value",this.deptId);
-						$("#empAddModal select").append(option);
+						$(ele).append(option);
 					}); 
 				}
 			});
+		}
+		
+		$("#emp_add_modal_button").click(function(){
+			//清除之前表单的信息
+			reset("#empAddModal form");
+			//先发送Ajax请求
+			getDept("#empAddModal select");
 			//显示表单
 			$('#empAddModal').modal({
 				backdrop:"static"
@@ -342,6 +399,13 @@
 				}
 			});
 		}
+		
+		$(document).on("click",".update_btn",function(){
+			getDept("#empUpdateModal select");
+			$('#empUpdateModal').modal({
+				backdrop:"static"
+			});
+		});
 	</script>
 </body>
 </html>
