@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,13 @@ public class EmployeeController {
 	
 	@Autowired
 	EmploeeService emplyoeeService;
+	
+	@RequestMapping(value="/emp/{id}",method=RequestMethod.GET)
+	@ResponseBody
+	public Message getEmp(@PathVariable("id") Integer id){
+		Employee employee = emplyoeeService.getEmp(id);
+		return Message.success().add("emp", employee);
+	}
 	
 	//处理ajax请求用户名是否重复
 	@ResponseBody

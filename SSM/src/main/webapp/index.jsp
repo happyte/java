@@ -26,8 +26,7 @@
 			  <div class="form-group">
 			    <label class="col-sm-2 control-label">姓名</label>
 				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="empName_update_input" name="empName" placeholder="姓名">
-				      <span class="help-block"></span>
+				      <p class="form-control-static" id="empName_update_static"></p>
 				    </div>
 			  </div>
 			  <div class="form-group">
@@ -196,6 +195,7 @@
 				var editBtn = $("<button></button>").addClass("btn btn-info btn-sm update_btn")
 							  .append($("<span></span>").addClass("glyphicon glyphicon-pencil"))
 							  .append("编辑");
+				editBtn.attr("edit_update",item.empId);
 				var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
 				              .append($("<span></span>").addClass("glyphicon glyphicon-trash"))   
 				              .append("删除");
@@ -402,10 +402,28 @@
 		
 		$(document).on("click",".update_btn",function(){
 			getDept("#empUpdateModal select");
+			var id = $(this).attr("edit_update");
+			getEmp(id);
 			$('#empUpdateModal').modal({
 				backdrop:"static"
 			});
 		});
+		
+		function getEmp(id) {
+			//发送ajax请求
+			$.ajax({
+				url:"${APP_PATH}/emp/"+id,
+				type:"GET",
+				success:function(result){
+					console.log(result);
+					var empData = result.extendMap.emp;
+					$("#empName_update_static").text(empData.empName);
+					$("#empUpdateModal input[name=email]").val(empData.email);
+					$("#empUpdateModal input[name=gender]").val([empData.gender]);
+					$("#empUpdateModal select").val([empData.dId]);
+				}
+			});
+		}
 	</script>
 </body>
 </html>
