@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +24,22 @@ import com.zs.ssm.bean.Employee;
 import com.zs.ssm.bean.Message;
 import com.zs.ssm.service.EmploeeService;
 
+import net.sf.jsqlparser.statement.update.Update;
+
 @Controller
 public class EmployeeController {
 	
 	@Autowired
 	EmploeeService emplyoeeService;
+	
+	@RequestMapping(value="/emp/{empId}",method=RequestMethod.PUT)
+	@ResponseBody
+	public Message Update(Employee employee,HttpServletRequest request){
+		System.out.println("empId:"+request.getParameter("empId"));
+		System.out.println("employee:"+employee);
+		emplyoeeService.update(employee);
+		return Message.success();
+	}
 	
 	@RequestMapping(value="/emp/{id}",method=RequestMethod.GET)
 	@ResponseBody

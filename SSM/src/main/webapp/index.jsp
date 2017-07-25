@@ -57,7 +57,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-	        <button type="button" class="btn btn-primary" id="update_emp_btn">保存</button>
+	        <button type="button" class="btn btn-primary" id="update_emp_btn">更新</button>
 	      </div>
 	    </div>
 	  </div>
@@ -160,6 +160,7 @@
 		</div>
 	</div>
 	<script type="text/javascript">
+		var curPage;
 		$(function(){
 			//去首页
 			to_page(1);
@@ -217,6 +218,7 @@
 			var pages = result.extendMap.pageInfo.pages;
 			var total = result.extendMap.pageInfo.total;
 			$("#page_info_area").append("当前第"+pageNum+"页，共有"+pages+"页，总计"+total+"条记录");
+			curPage = pageNum;
 		}
 		
 		function build_page_nav(result) {
@@ -404,6 +406,7 @@
 			getDept("#empUpdateModal select");
 			var id = $(this).attr("edit_update");
 			getEmp(id);
+			$("#update_emp_btn").attr("edit_update",id);
 			$('#empUpdateModal').modal({
 				backdrop:"static"
 			});
@@ -424,6 +427,27 @@
 				}
 			});
 		}
+		
+		$("#update_emp_btn").click(function() {
+			//先校验邮箱格式
+			var email = $("#email_update_input").val();
+			var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+			if(!regEmail.test(email)){
+				show_validate_msg("#email_update_input", "error", "邮箱格式不正确");
+				return false;
+			}
+			$.ajax({
+				url:"${APP_PATH}/emp/"+$(this).attr("edit_update"),
+				type:"PUT",
+				data:$("#empUpdateModal form").serialize(),
+				success:function(result){
+					//关闭模态框
+					$("#empUpdateModal").modal('hide');
+					//跳转到当前页
+					to_page(curPage);
+				}
+			});
+		});
 	</script>
 </body>
 </html>
