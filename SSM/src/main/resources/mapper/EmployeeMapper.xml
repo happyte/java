@@ -82,22 +82,22 @@
     emp_id, emp_name, gender, email, d_id
   </sql>
   <sql id="WithDept_Column_List">
-  	e.emp_id, e.emp_name, e.gender, e.email, e.d_id, d.dept_id, d.dept_name
+  	e.emp_id, e.emp_name, e.gender, e.email, e.d_id,d.dept_id,d.dept_name
   </sql>
   <select id="selectByExampleWithDept" resultMap="WithDeptResultMap">
-  	select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="WithDept_Column_List" />
-    from tbl_emp e
-    left join tbl_dept d on e.`d_id`=d.`dept_id`
-    <if test="_parameter != null">
-	  <include refid="Example_Where_Clause" />
-	</if>
-	<if test="orderByClause != null">
-	   order by ${orderByClause}
-	</if>
+	   select
+	    <if test="distinct">
+	      distinct
+	    </if>
+	    <include refid="WithDept_Column_List" />
+		FROM tbl_emp e
+		left join tbl_dept d on e.`d_id`=d.`dept_id`
+	    <if test="_parameter != null">
+	      <include refid="Example_Where_Clause" />
+	    </if>
+	    <if test="orderByClause != null">
+	      order by ${orderByClause}
+	    </if>
   </select>
   <select id="selectByExample" parameterType="com.zs.ssm.bean.EmployeeExample" resultMap="BaseResultMap">
     select

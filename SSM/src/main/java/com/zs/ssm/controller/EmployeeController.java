@@ -32,6 +32,13 @@ public class EmployeeController {
 	@Autowired
 	EmploeeService emplyoeeService;
 	
+	@RequestMapping(value="/emp/{empId}",method=RequestMethod.DELETE)
+	@ResponseBody
+	public Message deleteById(@PathVariable("empId") Integer empId){
+		emplyoeeService.delete(empId);
+		return Message.success();
+	}
+	
 	@RequestMapping(value="/emp/{empId}",method=RequestMethod.PUT)
 	@ResponseBody
 	public Message Update(Employee employee,HttpServletRequest request){

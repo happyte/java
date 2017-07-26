@@ -138,6 +138,7 @@
 			<table class="table" id="emps_table">
 				<thead>
 					<tr>
+						<th><input type="checkbox" id="check_all"></th>
 						<th>ID</th>
 						<th>姓名</th>
 						<th>邮箱</th>
@@ -188,6 +189,7 @@
 			//用户信息
 			var emps = result.extendMap.pageInfo.list;
 			$.each(emps,function(index,item){
+				var checkTd = $("<td><input type='checkbox' class='check_item'></td>")
 				var empIdTd = $("<td></td>").append(item.empId);
 				var empNameTd = $("<td></td>").append(item.empName);
 				var emailTd = $("<td></td>").append(item.email);
@@ -200,8 +202,10 @@
 				var delBtn = $("<button></button>").addClass("btn btn-danger btn-sm delete_btn")
 				              .append($("<span></span>").addClass("glyphicon glyphicon-trash"))   
 				              .append("删除");
+				delBtn.attr("emp_delete",item.empId);
 				var btnTd  = $("<td></td>").append(editBtn).append(" ").append(delBtn);
-				$("<tr></tr>").append(empIdTd)
+				$("<tr></tr>").append(checkTd)
+							  .append(empIdTd)
 							  .append(empNameTd)
 							  .append(emailTd)
 							  .append(genderTd)
@@ -447,6 +451,33 @@
 					to_page(curPage);
 				}
 			});
+		});
+		
+		$("#check_all").click(function() {
+			//id一个页面只可以使用一次；class可以多次引用。
+			$(".check_item").prop("checked",$("#check_all").prop("checked"));
+		});
+		
+		$(document).on("click",".check_item",function(){
+			//如果被选中的框等于所有框的个数
+			var flag = $(".check_item:checked").length == $(".check_item").length;
+			$("#check_all").prop("checked",flag);
+		});
+		
+		$(document).on("click",".delete_btn",function(){
+			//获取自定义属性
+			var empName = $(this).parent().parent().find("td:eq(2)").text();
+			var id = $(this).attr("emp_delete");
+			if(confirm("确认要删除"+empName+"吗?")){
+				$.ajax({
+					url:"${APP_PATH}/emp/"+id,
+					type:"DELETE",
+					success:function(result){
+						alert(result.message);
+						to_page(curPage);
+					}
+				});
+			}
 		});
 	</script>
 </body>
