@@ -128,7 +128,7 @@
 				<button class="btn btn-primary btn-sm" id="emp_add_modal_button"> 
 				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>新增
 				</button>
-				<button class="btn btn btn-danger btn-sm"> 
+				<button class="btn btn btn-danger btn-sm" id="emp_delete_all"> 
 				<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>删除
 				</button>
 			</div>
@@ -478,6 +478,25 @@
 					}
 				});
 			}
+		});
+		
+		$("#emp_delete_all").click(function() {
+			var empNames = "";
+			var id_strs = ""
+			$.each($(".check_item:checked"),function(){
+				empNames += $(this).parent().parent().find("td:eq(2)").text()+",";
+				id_strs += $(this).parent().parent().find("td:eq(1)").text()+"-";
+			}); 
+			empNames = empNames.substring(0,empNames.length-1);
+			id_strs = id_strs.substring(0,id_strs.length-1);
+			$.ajax({
+				url:"${APP_PATH}/emp/"+id_strs,
+				type:"DELETE",
+				success:function(result){
+					alert(result.message);
+					to_page(curPage);
+				}
+			});
 		});
 	</script>
 </body>

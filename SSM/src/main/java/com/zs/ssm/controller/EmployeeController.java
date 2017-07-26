@@ -1,5 +1,6 @@
 package com.zs.ssm.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,10 +33,20 @@ public class EmployeeController {
 	@Autowired
 	EmploeeService emplyoeeService;
 	
-	@RequestMapping(value="/emp/{empId}",method=RequestMethod.DELETE)
+	@RequestMapping(value="/emp/{empIds}",method=RequestMethod.DELETE)
 	@ResponseBody
-	public Message deleteById(@PathVariable("empId") Integer empId){
-		emplyoeeService.delete(empId);
+	public Message deleteById(@PathVariable("empIds") String empIds){
+		if(empIds.contains("-")){
+			List<Integer> ids = new ArrayList<>();
+			String[] id_strs = empIds.split("-");
+			for(String id:id_strs){
+				ids.add(Integer.parseInt(id));
+			}
+			emplyoeeService.deleteBatch(ids);
+		}
+		else{
+			emplyoeeService.delete(Integer.parseInt(empIds));
+		}
 		return Message.success();
 	}
 	
